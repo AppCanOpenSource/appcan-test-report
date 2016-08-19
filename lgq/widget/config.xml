@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<widget appId="11532131" channelCode="0000" height="480" pid="" sreensize="4.5" version="00.00.0001" viewmode="application" widgetId="" width="320">
+	<name>AppCan Native 开发</name>
+	<description/>
+	<author email=""> </author>
+	<icon src="icon.png"/>
+	<license href=""/>
+	<content encoding="utf-8" src="index.html"/>
+	<updateurl/>
+	<logserverip/>
+	<showmyspace>false</showmyspace>
+	<obfuscation>false</obfuscation>
+	<bgcolor>#fefefe</bgcolor>
+	<orientation>1</orientation>
+	<debug>true</debug>
+	<partobfuscation>false</partobfuscation>
+<webapp/>
+<config desc="uexALiBaiChuan" type="URLSCHEME"> 
+    <urlScheme name="uexALiBaiChuan" schemes="['tbopen23368914']"/> 
+</config> 
+<config desc="uexQQ" type="KEY">
+    <param name="$UEXQQ_APPID$" platform="Android" value="tencent1104850791"/>
+</config>
+<config desc="uexQQ" type="URLSCHEME">
+    <urlScheme name="uexQQ" schemes="['QQ41daaf67','tencent1104850791']"/>
+</config>
+<config desc="uexWeiXin" type="URLSCHEME">
+    <urlScheme name="uexWeiXin" schemes="['wxbca95dc6752e0025']"/>
+</config>
+<config desc="uexSina" type="URLSCHEME">
+    <urlScheme name="uexSina" schemes="['wb2485277326']"/>
+</config>
+<config desc="uexBaiduMap" type="KEY">
+        <param name="$uexBaiduMap_APIKey$" platform="iOS" value="61Mogm8Xi8N6Zobn56oOxPpi"/>
+        <param name="$uexBaiduMap_APIKey$" platform="Android" value="32QLBlURKM1KqDfNN6XjihLA"/>
+</config>
+<config desc="uexGaode" type="KEY">     
+  <param name="$uexGaodeMap_APIKey$" platform="iOS" value="2fd635b317dbc43a9f622f84cc997e79"/>   
+  <param name="$uexGaodeMap_APIKey$" platform="Android" value="a02f99bf851818e16212b032cf03881c"/>  
+</config>
+<config desc="whiteList" type="AUTHORITY">
+    <permission info="urlSchemeWhiteList" platform="iOS">
+    <string>alipay</string>
+	<string>alipayshare</string>
+    <string>sinaweibohd</string>
+    <string>sinaweibo</string>
+    <string>sinaweibosso</string>
+    <string>sinaweibohdsso</string>
+    <string>weibosdk</string>
+    <string>weibosdk2.5</string>
+    <string>mqzoneopensdk</string> 
+	<string>mqzoneopensdkapi</string>
+	<string>mqzoneopensdkapi19</string>
+	<string>mqzoneopensdkapiV2</string>
+	<string>mqqOpensdkSSoLogin</string>
+	<string>mqqopensdkapiV2</string>
+	<string>mqqopensdkapiV3</string>
+	<string>wtloginmqq2</string>
+	<string>mqqapi</string>
+	<string>mqqwpa</string>
+	<string>mqzone</string>
+	<string>mqq</string>
+	<string>wechat</string>
+	<string>weixin</string>
+    </permission>
+</config>
+<config desc="bgConfig" type="AUTHORITY">
+    <permission flag="1" info="backGroundMode" platform="iOS"/>
+    <permission flag="2" info="backGroundMode" platform="iOS"/>
+</config>
+<config desc="uexBaiduNavi" type="KEY">
+   	<param name="$uexBaiduNavi_ApiKey$" platform="Android" value="32QLBlURKM1KqDfNN6XjihLA"/>
+</config>
+<config desc="uexGaodeNavi" type="KEY">
+    <param name="$uexGaodeNavi_appKey$" platform="Android" value="a02f99bf851818e16212b032cf03881c"/>
+</config>
+<config desc="bgConfig" type="AUTHORITY">
+<permission flag="3" info="backGroundMode" platform="iOS"/>
+</config>
+</widget>
