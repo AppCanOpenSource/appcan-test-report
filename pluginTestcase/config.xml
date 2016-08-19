@@ -12,8 +12,7 @@
 	<obfuscation>false</obfuscation>
 	<bgcolor>#fefefe</bgcolor>
 	<orientation>1</orientation>
-	<debug enable="true" verbose="true"/>
-<debug/>
+	<debug enable="true"/>
 <partobfuscation>false</partobfuscation>
 <webapp/>
 <config desc="uexALiBaiChuan" type="URLSCHEME"> 
