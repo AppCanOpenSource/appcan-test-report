@@ -294,7 +294,7 @@
 
                                    });
                 },
-                "post2" : function() {
+                "postWithPostData" : function() { //Content-Type: multipart/form-data（有文件） or application/x-www-form-urlencoded(默认)
 
                            var req = uexXmlHttpMgr.create({
                                                method:"POST",
@@ -307,11 +307,18 @@
                                                UNIT_TEST.log("创建请求成功！");
                                            }
 
-                                           var header = {
-                                               Contenttype:"adsf",
-                                               testHeaderField:"testHeaderValue"
-                                           }
-                                           var ret = uexXmlHttpMgr.setHeaders(req, JSON.stringify(header));
+//                                           var header = {
+//                                               'Content-type':"adsf",
+//                                               'postWithPostDataHeader':"testHeaderValue"
+//                                           }
+//                                           var ret = uexXmlHttpMgr.setHeaders(req, JSON.stringify(header));
+
+
+                                           var result1 = uexXmlHttpMgr.setPostData(req,0, "field1", "Hello");
+                                           var result2 = uexXmlHttpMgr.setPostData(req,1, "field2", 'res://1_1.jpg');
+                                           var result2 = uexXmlHttpMgr.setPostData(req,1, "field3", 'res://1_1.jpg');
+
+
 
                                            uexXmlHttpMgr.send(req, 0, function(state,resStr,resCode,resInfo){
 
@@ -329,6 +336,103 @@
                                                               function(progress){
 
                                                               });
+
+                },
+                "postWithPostBody" : function() { //Content-Type: multipart/form-data
+
+                                           var req = uexXmlHttpMgr.create({
+                                                               method:"POST",
+                                                               url:"http://192.168.1.47:1337/testPostBody",
+                                                               timeout:15000,
+                                                           });
+                                                           if(!req){
+                                                               UNIT_TEST.log("创建请求失败！");
+                                                           } else {
+                                                               UNIT_TEST.log("创建请求成功！");
+                                                           }
+
+                                                           var header = {
+                                                               'Content-type':"text/html"
+                                                           }
+                                                           var ret = uexXmlHttpMgr.setHeaders(req, JSON.stringify(header));
+
+
+                                                           var ret = uexXmlHttpMgr.setBody(req, "body content");
+
+                                                           uexXmlHttpMgr.send(req, 0, function(state,resStr,resCode,resInfo){
+
+                                                                                   UNIT_TEST.log("state:" + state  + "\nresult:" + resStr + "\nresCode:" + resCode + "\nresInfo:" + JSON.stringify(resInfo));
+
+                                                                                   uexXmlHttpMgr.close(req);
+
+                                                                                   if (state == 1) {
+                                                                                       UNIT_TEST.assertEqual(0, 0);
+                                                                                   } else {
+                                                                                       UNIT_TEST.assertEqual(1, 0);
+                                                                                   }
+
+                                                                              },
+                                                                              function(progress){
+
+                                                                              });
+
+                                },
+
+                "postWithPostStream" : function() {
+                    var req = uexXmlHttpMgr.create({
+                                method:"POST",
+                                url:"http://192.168.1.47:1337/testPostStream",
+                                timeout:15000});
+                    if(!req){
+                        UNIT_TEST.log("创建请求失败！");
+                    } else {
+                        UNIT_TEST.log("创建请求成功！");
+                    }
+
+
+
+                    var header = {
+                                               'Content-type':'application/vnd.custom-type',
+                                 }
+
+                    var ret = uexXmlHttpMgr.setHeaders(req, JSON.stringify(header));
+
+                    var ret = uexXmlHttpMgr.setAppVerify(req, 1);
+
+                    var file = "res://icon.png";
+                    var ret = uexXmlHttpMgr.setInputStream(req, file);
+
+
+                     uexXmlHttpMgr.send(req, 0, function(state,resStr,resCode,resInfo){
+
+
+
+
+                                                                                                       UNIT_TEST.log("state:" + state  + "\nresult:" + resStr + "\nresCode:" + resCode + "\nresInfo:" + JSON.stringify(resInfo));
+
+                                                                                                       uexXmlHttpMgr.close(req);
+
+                                                                                                       if (state == 1) {
+                                                                                                           UNIT_TEST.assertEqual(0, 0);
+                                                                                                       } else {
+                                                                                                           UNIT_TEST.assertEqual(1, 0);
+                                                                                                       }
+
+                                                                                                  },
+                                                                                                  function(progress){
+
+                                                                                                  });
+                },
+                "testCookie" : function () {
+                    var ret = uexXmlHttpMgr.getCookie("http://192.168.1.47:1337");
+                    UNIT_TEST.log("get cookie " + ret);
+
+                    uexXmlHttpMgr.clearCookie();
+
+                    ret = uexXmlHttpMgr.getCookie("http://192.168.1.47:1337");
+                    UNIT_TEST.log("after clear cookie " + ret);
+
+                    UNIT_TEST.assertEqual(0, 0);
 
                 }
 

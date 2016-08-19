@@ -10341,7 +10341,7 @@ appcan && appcan.define('download',function($,exports,module){
         @param Object opts 离线缓存的ajax请求的参数对象
     */
     function ajax(opts) {
-      alert('opts == ' + opts);
+
         if (arguments.length === 1 && appcan.isPlainObject(opts)) {
             var url;
             var expires;
