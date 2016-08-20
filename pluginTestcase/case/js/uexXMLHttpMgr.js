@@ -2,32 +2,52 @@
  * Created by ylt on 16/8/18.
  */
 if (UNIT_TEST) {
+
+http://192.168.1.47:45678/get
 	var uexXMLHttpMgrCase = {
 		"testPostInAppcanJS" : function() {
-	    	testPostInAppcanJS();
+
+		    var reqUrl = "http://42.96.172.127:19898/app/login";
+
+	    	testPostInAppcanJS(reqUrl);
 		},
 		"testGet" : function () {
-			testGet();
+
+		    var reqUrl = "http://192.168.1.47:1337/test?key1=value1&key2=value2&arr[]=aaa&arr[]=bbb&arr[]=ccc";
+
+			testGet(reqUrl);
 		},
 		"testPostWithData" : function () {
-			testPostWithData();
+
+		    var reqUrl = "http://192.168.1.47:1337/testPost";
+
+			testPostWithData(reqUrl);
 		},
 		"testPostWithBody" : function () {
-			testPostWithBody();
+
+		    var reqUrl = "http://192.168.1.47:1337/testPostBody";
+
+			testPostWithBody(reqUrl);
 		},
 		"testPostWithStream" : function () {
-			testPostWithStream();
+
+		    var reqUrl = "http://192.168.1.47:1337/testPostStream";
+
+			testPostWithStream(reqUrl);
 		},
 		"testCookie" : function () {
-			testCookie();
+
+		    var reqUrl = "http://192.168.1.47:1337";
+
+			testCookie(reqUrl);
 		},
 
 	}
 
-	uexXMLHttpMgrCase.testPostInAppcanJS = function () {
+	function testPostInAppcanJS(reqUrl) {
 		var self = this;
 	    appcan.request.ajax({
-	        url : "http://42.96.172.127:19898/app/login",
+	        url : reqUrl,
 	        type : "POST",
 	        data : $.param({"username":"admin","password":"admin"}),
 	        dataType : "json",
@@ -43,10 +63,10 @@ if (UNIT_TEST) {
 	    });
 	}
 
-	uexXMLHttpMgrCase.testGet = function () {
+	function testGet(reqUrl) {
 		var req = uexXmlHttpMgr.create({
             method:"GET",
-            url:"http://192.168.1.47:1337/test?key1=value1&key2=value2&arr[]=aaa&arr[]=bbb&arr[]=ccc",
+            url:reqUrl,
             timeout:15000,
         });
         if(!req){
@@ -79,11 +99,11 @@ if (UNIT_TEST) {
        	});
 	}
 
-	uexXMLHttpMgrCase.testPostWithData = function() { //Content-Type: multipart/form-data（有文件） or application/x-www-form-urlencoded(默认)
+ 	function testPostWithData(reqUrl) { //Content-Type: multipart/form-data（有文件） or application/x-www-form-urlencoded(默认)
 
        var req = uexXmlHttpMgr.create({
            method:"POST",
-           url:"http://192.168.1.47:1337/testPost",
+           url:reqUrl,
            timeout:15000,
        });
        if(!req){
@@ -118,10 +138,10 @@ if (UNIT_TEST) {
 
     }
 
-    uexXMLHttpMgrCase.testPostWithBody = function () {
+    function testPostWithBody(reqUrl) {
     	var req = uexXmlHttpMgr.create({
            method:"POST",
-           url:"http://192.168.1.47:1337/testPostBody",
+           url:reqUrl,
            timeout:15000,
        });
        if(!req){
@@ -156,10 +176,10 @@ if (UNIT_TEST) {
 
     }
 
-    uexXMLHttpMgrCase.testPostWithStream = function () {
+    function testPostWithStream(reqUrl) {
     	var req = uexXmlHttpMgr.create({
                     method:"POST",
-                    url:"http://192.168.1.47:1337/testPostStream",
+                    url:reqUrl,
                     timeout:15000});
         if(!req){
             UNIT_TEST.log("创建请求失败！");
@@ -199,13 +219,13 @@ if (UNIT_TEST) {
       	});
     }
 
-    uexXMLHttpMgrCase.testCookie = function () {
-        var ret = uexXmlHttpMgr.getCookie("http://192.168.1.47:1337");
+    function testCookie(reqUrl) {
+        var ret = uexXmlHttpMgr.getCookie(reqUrl);
         UNIT_TEST.log("get cookie " + ret);
 
         uexXmlHttpMgr.clearCookie();
 
-        ret = uexXmlHttpMgr.getCookie("http://192.168.1.47:1337");
+        ret = uexXmlHttpMgr.getCookie(reqUrl);
         UNIT_TEST.log("after clear cookie " + ret);
 
         UNIT_TEST.assertEqual(0, 0);
