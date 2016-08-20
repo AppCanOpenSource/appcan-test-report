@@ -7226,15 +7226,15 @@ appcan && appcan.define('request', function($, exports, module) {
             }
         }
         //兼容前端中断请求返回错误提示
-        if (settings.timeout > 0 && !window.abortTimeout) window.abortTimeout = setTimeout(function() {
-            if (window.abortTimeout) {
-                clearTimeout(window.abortTimeout);
-                window.abortTimeout = null;
-            }
-            xhr.onData = empty
-            xhr.close(req.id)
-            ajaxError(null, 'timeout', null, xhr, settings, deferred)
-        }, settings.timeout)
+        // if (settings.timeout > 0 && !window.abortTimeout) window.abortTimeout = setTimeout(function() {
+        //     if (window.abortTimeout) {
+        //         clearTimeout(window.abortTimeout);
+        //         window.abortTimeout = null;
+        //     }
+        //     xhr.onData = empty
+        //     xhr.close(req.id)
+        //     ajaxError(null, 'timeout', null, xhr, settings, deferred)
+        // }, settings.timeout)
         xhr.send(req.id,0,function() {
             var resArg = [xhr];
 			resArg.push(req);
