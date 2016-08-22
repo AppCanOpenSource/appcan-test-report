@@ -1,0 +1,15 @@
+{
+  "name": "socket_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CeriNo",
+  "license": "ISC",
+  "dependencies": {
+    "log4js": "^0.6.38",
+    "moment": "^2.14.1"
+  }
+}
