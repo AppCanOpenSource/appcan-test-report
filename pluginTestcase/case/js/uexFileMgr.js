@@ -4,51 +4,192 @@
 if (UNIT_TEST) {
     var uexFileMgrCase = {
         "create" : function() {
-            var f = appcan.file.create("wgt://create.txt");
+            var f = uexFileMgr.create({
+                path:"wgt://create.txt"
+            });
             if (f != null) {
-                f.close();
+                uexFileMgr.closeFile(f);
             }
             UNIT_TEST.assertNotEqual(f, 0);
 
         },
-        "createSecure" : function() {
-            var f = appcan.file.createSecure("wgt://createSecure.txt");
-            if (f != null) {
-                f.close();
-            }
-            UNIT_TEST.assertNotEqual(f, 0);
-
+        "mkdir":function () {
+            uexFileMgr.deleteFileByPath("wgt://data/test11");
+            var result=uexFileMgr.mkdir({
+                path:"wgt://data/test11"
+            });
+            UNIT_TEST.assertTrue(result);
         },
         "open" : function() {
-            var f = appcan.file.open("wgt://demo.txt", 2);
+            var f = uexFileMgr.open({
+                path:"wgt://demo.txt",
+                mode:2
+            });
             if (f != null) {
-                f.close();
-            }
-            UNIT_TEST.assertNotEqual(f, 0);
-        },
-        "openSecure" : function() {
-            var f = appcan.file.openSecure("wgt://secure.txt", 2, "appcan.cn");
-            if (f != null) {
-                f.close();
-            }
-            UNIT_TEST.assertNotEqual(f, 0);
-        },
-        "write" : function() {
-            var f = appcan.file.open("wgt://demo.txt", 2);
-            if (f != null) {
-                f.write("this is a case", 0, function(ret) {
-                    alert(ret);
-                    f.close();
-                    UNIT_TEST.assertTrue(ret);
-                })
-            } else
+                uexFileMgr.closeFile(f);
+                UNIT_TEST.assert(true);
+            }else{
                 UNIT_TEST.assert(false);
+            }
         },
-        "read" : function() {
-            var f = appcan.file.open("wgt://demo.txt", 2);
+        "seekFile":function () {
+            var f = uexFileMgr.open({
+                path:"wgt://seekDemo.txt",
+                mode:7
+            });
             if (f != null) {
-                f.read(-1, 0, function(err, ret) {
-                    f.close();
+                uexFileMgr.writeFile(f,0,"this is a case!this is a case!this is a case!this is a " +
+                    "case!this is a case!this is a case!this is a case!",function(ret) {
+                    var result=uexFileMgr.seekFile(f,5);
+                    uexFileMgr.closeFile(f);
+                    UNIT_TEST.assertNotEqual(result,-1);
+                })
+            } else {
+                UNIT_TEST.assert(false);
+            }
+        },
+        "seekBeginOfFile":function () {
+            var f = uexFileMgr.open({
+                path:"wgt://seekDemo.txt",
+                mode:1
+            });
+            if (f != null) {
+                var result = uexFileMgr.seekBeginOfFile(f);
+                uexFileMgr.closeFile(f);
+                UNIT_TEST.assertNotEqual(result, -1);
+            } else {
+                UNIT_TEST.assert(false);
+            }
+        },
+        "seekEndOfFile":function () {
+            var f = uexFileMgr.open({
+                path:"wgt://seekDemo.txt",
+                mode:1
+            });
+            if (f != null) {
+                var result = uexFileMgr.seekEndOfFile(f);
+                uexFileMgr.closeFile(f);
+                UNIT_TEST.assertNotEqual(result, -1);
+            } else {
+                UNIT_TEST.assert(false);
+            }
+        },
+        "getReaderOffset":function () {
+            var f = uexFileMgr.open({
+                path:"wgt://seekDemo.txt",
+                mode:1
+            });
+            if (f != null) {
+                uexFileMgr.seekFile(f,5);
+                var offset=uexFileMgr.getReaderOffset(f);
+                uexFileMgr.closeFile(f);
+                UNIT_TEST.log("offset: "+offset);
+                UNIT_TEST.assertEqual(offset, 5);
+            } else {
+                UNIT_TEST.assert(false);
+            }
+        },
+        "readPercent":function () {
+            var f = uexFileMgr.open({
+                path:"wgt://seekDemo.txt",
+                mode:1
+            });
+            if (f != null) {
+                uexFileMgr.readPercent(f,20,5,function (error,data) {
+                    if(!error){
+                        UNIT_TEST.log(data);
+                        UNIT_TEST.assertNotEqual(data,null)
+                    }else{
+                        UNIT_TEST.assert(false);
+                    }
+                });
+                uexFileMgr.closeFile(f);
+            } else {
+                UNIT_TEST.assert(false);
+            }
+        },
+        "readNext":function () {
+            var f = uexFileMgr.open({
+                path:"wgt://seekDemo.txt",
+                mode:1
+            });
+            if (f != null) {
+                uexFileMgr.readNext(f, 20,function(error,data){
+                    if(!error){
+                        UNIT_TEST.log(data);
+                        UNIT_TEST.assert(true);
+                    }else{
+                        UNIT_TEST.assert(false);
+                    }
+                });
+                uexFileMgr.closeFile(f);
+            } else {
+                UNIT_TEST.assert(false);
+            }
+        },
+        "readPre":function () {
+            var f = uexFileMgr.open({
+                path:"wgt://seekDemo.txt",
+                mode:1
+            });
+            if (f != null) {
+                uexFileMgr.seekEndOfFile(f);
+                uexFileMgr.readPre(f, 20,function(error,data){
+                    if(!error){
+                        UNIT_TEST.log(data);
+                        UNIT_TEST.assert(true);
+                    }else{
+                        UNIT_TEST.assert(false);
+                    }
+                });
+                uexFileMgr.closeFile(f);
+            } else {
+                UNIT_TEST.assert(false);
+            }
+        },
+        "deleteFileByPath":function () {
+            var file = uexFileMgr.open({
+                path: "wgt://data/222.txt",
+                mode: 4
+            });
+            if(!file){
+                UNIT_TEST.assert(false);
+            }else{
+                var ret = uexFileMgr.deleteFileByPath("wgt://data/222.txt");
+                uexFileMgr.closeFile(file);
+                UNIT_TEST.assertTrue(ret);
+            }
+        },
+        "isFileExistByPath":function () {
+            var result= uexFileMgr.isFileExistByPath("wgt://data/222.txt");
+            UNIT_TEST.assertTrue(!result);
+        },
+        "getFileTypeByPath": function () {
+            var result=uexFileMgr.getFileTypeByPath("wgt://data");
+            UNIT_TEST.assertEqual(result,1);
+        },
+        "writeFile" : function() {
+            var f = uexFileMgr.open({
+                path:"wgt://demo.txt", 
+                mode:2
+            });
+            if (f != null) {
+                uexFileMgr.writeFile(f,0,"this is a case", function(error) {
+                    uexFileMgr.closeFile(f);;
+                    UNIT_TEST.assertEqual(error,0);
+                })
+            } else {
+                UNIT_TEST.assert(false);
+            }
+        },
+        "readFile" : function() {
+            var f = uexFileMgr.open({
+                path:"wgt://demo.txt",
+                mode:2
+            });
+            if (f != null) {
+                uexFileMgr.readFile(f,-1, 0, function(err, ret) {
+                    uexFileMgr.closeFile(f);;
                     UNIT_TEST.log(err + "--" + ret);
                     if (!err)
                         UNIT_TEST.assertEqual(ret, "this is a case");
@@ -58,68 +199,56 @@ if (UNIT_TEST) {
             } else
                 UNIT_TEST.assert(false);
         },
-        "deleteFile" : function() {
-            var ret = appcan.file.remove("wgt://secure.txt");
-            UNIT_TEST.assertTrue(ret);
-        },
         "renameFile" : function() {
-            appcan.file.rename("wgt://demo.txt", "wgt://open.txt", function(res) {
-                UNIT_TEST.assertTrue(!res);
+            uexFileMgr.renameFile({
+                oldFilePath:"wgt://demo.txt",
+                newFilePath:"wgt://open.txt"
+            }, function(error) {
+                UNIT_TEST.assertEqual(error,0);
             });
         },
-        "createTime" : function() {
-            var t = appcan.file.createTime("wgt://open.txt");
-            UNIT_TEST.log("time is " + t);
-            UNIT_TEST.assertString(t);
-        },
-        "getRealPath" : function() {
-            var p = appcan.file.getRealPath("wgt://open.txt");
+        "getFileRealPath" : function() {
+            var p = uexFileMgr.getFileRealPath("wgt://open.txt");
             UNIT_TEST.assertString(p);
         },
-        "fileSize" : function() {
-            var p = appcan.file.fileSize("wgt://open.txt", function(info) {
-                UNIT_TEST.log(JSON.stringify(info));
-                UNIT_TEST.assertTrue(info != null);
+        "getFileSize" : function() {
+            var file=uexFileMgr.open({
+                path:"wgt://open.txt"
             });
+            var size = uexFileMgr.getFileSize(file,"wgt://open.txt");
+            if (size!=-1){
+                UNIT_TEST.log("size:"+size);
+                UNIT_TEST.assert(true);
+            }else{
+                UNIT_TEST.assert(false);
+            }
         },
-        "fileList" : function() {
-            var info = appcan.file.fileList("wgt://");
+        "getFilePath":function () {
+            var file = uexFileMgr.open({
+                path: "wgt://data/1.txt",
+                mode: 3
+            });
+            var path = uexFileMgr.getFilePath(file);
+            UNIT_TEST.assertNotEqual(path,null);
+        },
+        "closeFile":function () {
+            var file=uexFileMgr.open({
+                path:"wgt://open.txt"
+            });
+            if(file!=null){
+                var result =uexFileMgr.closeFile(file);
+                UNIT_TEST.assertTrue(result);
+            }else{
+                UNIT_TEST.assert(false);
+            }
+        },
+        "getFileListByPath" : function() {
+            var info = uexFileMgr.getFileListByPath("wgt://");
             UNIT_TEST.log(JSON.stringify(info));
             UNIT_TEST.assertTrue(info != null);
         },
-        "writeAll" : function() {
-            appcan.file.writeAll("wgt://all.txt", "this is a case", function(error) {
-                UNIT_TEST.assertTrue(error);
-            })
-        },
-        "readAll" : function() {
-            appcan.file.readAll("wgt://all.txt", function(error, data) {
-                UNIT_TEST.log(error + "--" + data);
-                if (!error)
-                    UNIT_TEST.assertEqual(data, "this is a case");
-                else
-                    UNIT_TEST.assert(false);
-            })
-        },
-        "writeAllSecure" : function() {
-            appcan.file.writeAll("wgt://allSecure.txt", "this is a case", function(error) {
-                UNIT_TEST.assertTrue(error);
-            }, "appcan.cn")
-        },
-        "readAllSecure" : function() {
-            appcan.file.readAll("wgt://allSecure.txt", function(error, data) {
-                UNIT_TEST.log(error + "--" + data);
-                if (!error)
-                    UNIT_TEST.assertEqual(data, "this is a case");
-                else
-                    UNIT_TEST.assert(false);
-            }, "appcan.cn")
-        },
-        "stat" : function() {
-            UNIT_TEST.assertEqual(appcan.file.stat("wgt://all.txt"), 0)
-        },
         "explorer" : function() {
-            appcan.file.explorer("wgt://", function(error, path) {
+            uexFileMgr.explorer("wgt://", function(error, path) {
                 UNIT_TEST.log(JSON.stringify(path));
                 if (!error) {
                     UNIT_TEST.assert(true);
@@ -128,7 +257,7 @@ if (UNIT_TEST) {
             })
         },
         "multiExplorer" : function() {
-            appcan.file.multiExplorer("wgt://", function(error, path) {
+            uexFileMgr.multiExplorer("wgt://", function(error, path) {
                 UNIT_TEST.log(JSON.stringify(path));
                 if (!error) {
                     UNIT_TEST.assert(true);
@@ -136,8 +265,78 @@ if (UNIT_TEST) {
                     UNIT_TEST.assert(false);
             })
         },
-        "exists" : function() {
-            UNIT_TEST.assertTrue(appcan.file.exists("wgt://all.txt"));
+        "isFileExistByPath" : function() {
+            UNIT_TEST.assertTrue(uexFileMgr.isFileExistByPath("wgt://open.txt"));
+        },
+        "createWithPassword":function () {
+            var file = uexFileMgr.createWithPassword({
+                path: "wgt://data/123456.txt",
+                password: "123456",
+                mode: 3
+            });
+            if(file!=null){
+                UNIT_TEST.assert(true);
+            }else{
+                UNIT_TEST.assert(false);
+            }
+        },
+        "openWithPassword":function () {
+            var file = uexFileMgr.openWithPassword({
+                path: "wgt://data/123456.txt",
+                password: "123456",
+                mode: 3
+            });
+            if(!file){
+                UNIT_TEST.assert(false);
+            }else{
+                UNIT_TEST.assert(true);
+            }
+        },
+        "search":function () {
+            var data = {
+                path:"res://",
+                flag:5,
+                keywords:["case","main"],
+                suffixes:["txt","js"]
+            };
+            uexFileMgr.search(data,function(err,result){
+                if(!err){
+                    UNIT_TEST.log(JSON.stringify(result));
+                    UNIT_TEST.assert(true);
+                }else{
+                    UNIT_TEST.log(false);
+                }
+            });
+        },
+        "getFileSizeByPath":function () {
+            var params = {
+                path:"wgt://",
+                unit:"KB"
+            }
+            uexFileMgr.getFileSizeByPath(params,function(error,info){
+                if(!error){
+                    UNIT_TEST.log(JSON.stringify(info));
+                    UNIT_TEST.assert(true);
+                }else{
+                    UNIT_TEST.assert(false);
+                }
+            });
+        },
+        "copy":function () {
+            uexFileMgr.mkdir({
+                path:"wgt://test2/"
+            });
+            uexFileMgr.copy({
+                src: "wgt://data/123456.txt",
+                target: "wgt://test2/"
+            },function(error){
+                if(!error){
+                    var ret = uexFileMgr.deleteFileByPath("wgt://test2/123456.txt");
+                    UNIT_TEST.assert(true);
+                }else{
+                    UNIT_TEST.assert(false);
+                }
+            });
         }
     };
     UNIT_TEST.addCase("file", uexFileMgrCase);
