@@ -50,30 +50,34 @@ if (UNIT_TEST) {
             }
         },
         "cancelDownload":function () {
+            var date=new Date().getMilliseconds();
+            var flag=true;
             var downloader = uexDownloaderMgr.create();
             if (downloader != null) {
                 uexDownloaderMgr.download(downloader,
                     downloadUrl,
-                    "wgt://data/down/1284565196.jpg",
+                    "wgt://data/down/"+date+".jpg",
                     1,
                     function (fileSize, percent, status) {
-                        if (percent>=50){
+                        if (percent>=50&&flag){
+                            flag=false;
                             uexDownloaderMgr.cancelDownload(downloadUrl)
                             UNIT_TEST.assert(true);
-                        }
-                        switch (status) {
-                            case 0:
-                                UNIT_TEST.log("文件大小：" + fileSize + "字节<br>下载进度：" + percent);
-                                return;
-                                break;
-                            case 1:
-                                UNIT_TEST.log("下载完成");
-                                uexDownloaderMgr.closeDownloader(downloader);
-                                break;
-                            case 2:
-                                UNIT_TEST.log("下载失败");
-                                UNIT_TEST.assert(false);
-                                break;
+                        }else {
+                            switch (status) {
+                                case 0:
+                                    UNIT_TEST.log("文件大小：" + fileSize + "字节<br>下载进度：" + percent);
+                                    return;
+                                    break;
+                                case 1:
+                                    UNIT_TEST.log("下载完成");
+                                    uexDownloaderMgr.closeDownloader(downloader);
+                                    break;
+                                case 2:
+                                    UNIT_TEST.log("下载失败");
+                                    UNIT_TEST.assert(false);
+                                    break;
+                            }
                         }
                     });
             } else {
@@ -90,14 +94,17 @@ if (UNIT_TEST) {
             }
         },
         "getInfo": function () {
+            var date=new Date().getMilliseconds();
+            var flag=true;
             var downloader = uexDownloaderMgr.create();
             if (downloader != null) {
                 uexDownloaderMgr.download(downloader,
                     downloadUrl,
-                    "wgt://data/down/1284565196.jpg",
+                    "wgt://data/down/"+date+".jpg",
                     1,
                     function (fileSize, percent, status) {
-                        if (percent>=50){
+                        if (percent>=50&&flag){
+                            flag=false;
                             var result=uexDownloaderMgr.getInfo(downloadUrl);
                             if (result==null){
                                 UNIT_TEST.assert(false);
@@ -108,18 +115,17 @@ if (UNIT_TEST) {
                             uexDownloaderMgr.closeDownloader(downloader);
                         }
                         switch (status) {
-                            case 0:
-                                UNIT_TEST.log("文件大小：" + fileSize + "字节<br>下载进度：" + percent);
-                                return;
-                                break;
-                            case 1:
-                                UNIT_TEST.log("下载完成");
-                                uexDownloaderMgr.closeDownloader(downloader);
-                                break;
-                            case 2:
-                                UNIT_TEST.log("下载失败");
-                                UNIT_TEST.assert(false);
-                                break;
+                                case 0:
+                                    UNIT_TEST.log("文件大小：" + fileSize + "字节<br>下载进度：" + percent);
+                                    return;
+                                    break;
+                                case 1:
+                                    UNIT_TEST.log("下载完成");
+                                    uexDownloaderMgr.closeDownloader(downloader);
+                                    break;
+                                case 2:
+                                    UNIT_TEST.log("下载失败");
+                                    break;
                         }
                     });
             } else {
