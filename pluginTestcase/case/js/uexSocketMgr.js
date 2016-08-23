@@ -137,7 +137,7 @@ define(["Rx","CC"], function(Rx,CC){
     }
     Rx.Observable
     .create(function (observer) {
-      tcp = uexSocketMgr.createTCP(null,function(status){
+      tcp = uexSocketMgr.createTCP(null, EMPTY_FUNC, function(status){
         CC.log("connect ~> TCP onStatus change to: " + status);
       });
       if (!tcp) {
@@ -157,8 +157,7 @@ define(["Rx","CC"], function(Rx,CC){
           connectSignal(null,SHOULD_FAIL),
           connectSignal({port: HOST_TCP_PORT},SHOULD_FAIL),
           connectSignal({host: HOST},SHOULD_FAIL),
-          connectSignal({port: HOST_TCP_PORT,host: HOST}),
-          connectSignal({port: HOST_TCP_PORT,host: HOST},SHOULD_FAIL)
+          connectSignal({port: HOST_TCP_PORT,host: HOST})
           )
         .finally(function(){tcp && uexSocketMgr.close(tcp);})
         .subscribe(
