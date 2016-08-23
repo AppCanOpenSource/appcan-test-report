@@ -6,7 +6,7 @@ if (UNIT_TEST) {
         "open" : function() {
             var db = uexDataBaseMgr.open("demo");
             if (db != null) {
-                uexDataBaseMgr.close();
+                uexDataBaseMgr.close(db);
             }
             UNIT_TEST.assertNotEqual(db, null);
         },
@@ -20,7 +20,7 @@ if (UNIT_TEST) {
                     }else{
                         UNIT_TEST.assert(false);
                     }
-                    db.close();
+                    uexDataBaseMgr.close(db);
                 });
             }else{
                 UNIT_TEST.assert(false);
@@ -37,7 +37,7 @@ if (UNIT_TEST) {
                         UNIT_TEST.log(JSON.stringify(data));
                         UNIT_TEST.assert(true);
                     }
-                    db.close();
+                    uexDataBaseMgr.close(db);
                 });
             }else{
                 UNIT_TEST.assert(false);
@@ -62,12 +62,13 @@ if (UNIT_TEST) {
                                 UNIT_TEST.log(JSON.stringify(data));
                                 UNIT_TEST.assert(true);
                             }
-                            db.close();
+                            uexDataBaseMgr.close(db);
                         });
                     }else {
                         UNIT_TEST.assert(false);
+                        uexDataBaseMgr.close(db);
                     }
-                    db.close();
+                    
                 });
             }else{
                 UNIT_TEST.assert(false);
