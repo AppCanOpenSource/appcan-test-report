@@ -77,9 +77,16 @@ if (UNIT_TEST) {
         "close":function () {
             var db = uexDataBaseMgr.open("demo");
             if (db != null) {
-                uexDataBaseMgr.sql(db,"DROP TABLE testTable");
-                var result = uexDataBaseMgr.close(db);
-                UNIT_TEST.assertTrue(result);
+                uexDataBaseMgr.sql(db,"DROP TABLE testTable", function(error) {
+                                    if (!error) {
+                                        UNIT_TEST.assert(true);
+                                    }else{
+                                        UNIT_TEST.assert(false);
+                                    }
+                                    var result = uexDataBaseMgr.close(db);
+                                    UNIT_TEST.assertTrue(result);
+                                });
+                
             }else{
                 UNIT_TEST.assert(false);
             }
