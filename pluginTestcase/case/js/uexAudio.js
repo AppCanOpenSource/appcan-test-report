@@ -1,0 +1,81 @@
+if (UNIT_TEST) {
+    var uexAudioCase = {
+        "open":function(){
+            uexAudio.open("res://song.mp3");
+            UNIT_TEST.assert(true);
+        },
+        "setPlayMode":function(){
+            uexAudio.setPlayMode({playMode:1});
+            UNIT_TEST.log("当前设置为听筒模式，请贴近耳朵听，播放时间为15秒钟.注意需要手机硬件支持听筒感应功能！");
+            UNIT_TEST.assert(true);
+        },
+        "play":function(){
+            uexAudio.play(2);
+            setTimeout("UNIT_TEST.assert(true)",15000);
+        },
+        "pause":function(){
+            uexAudio.pause();
+            setTimeout("UNIT_TEST.assert(true)",2000);
+        },
+        "replay":function(){
+            uexAudio.replay();
+            UNIT_TEST.assert(true);
+        },
+        "setProximityState":function(){
+            uexAudio.setPlayMode({playMode:0});
+            uexAudio.setProximityState(1);
+            UNIT_TEST.log("当前设置为扩音器模式，且听筒感应开关打开，离开或靠近耳朵时，自动切换声音播放模式，播放时间为15秒钟");
+            setTimeout("UNIT_TEST.assert(true)",15000);
+        },
+        "volumeUp":function(){
+            uexAudio.volumeUp();
+            uexAudio.setProximityState(0);
+            UNIT_TEST.log("铃声增大，且听筒感应开关关闭，离开或靠近耳朵时，不切换声音播放模式，播放时间为15秒钟");
+            setTimeout("UNIT_TEST.assert(true)",15000);
+        },
+        "volumeDown":function(){
+            uexAudio.volumeDown();
+            UNIT_TEST.log("铃声减小，播放时间为15秒钟");
+            setTimeout("UNIT_TEST.assert(true)",15000);
+        },
+        "onPlayFinished":function(){
+            uexAudio.onPlayFinished = function(loopTime){
+                UNIT_TEST.log("已播放次数:" + loopTime);
+                UNIT_TEST.assert(true);
+            };
+        },
+        "stop":function(){
+            uexAudio.stop();
+            UNIT_TEST.assert(true);
+        },
+        "openSoundPool":function(){
+            uexAudio.openSoundPool();
+            UNIT_TEST.assert(true);
+        },
+        "startBackgroundRecord":function(){
+            uexAudio.startBackgroundRecord(2);
+            setTimeout("UNIT_TEST.assert(true)",10000);
+        },
+        "stopBackgroundRecord&addSound":function(){
+            uexAudio.stopBackgroundRecord(function(path){
+                UNIT_TEST.log("录音地址:" + path);
+                uexAudio.addSound(1,path);
+                UNIT_TEST.assert(true);
+            });
+        },
+        "playFromSoundPool":function(){
+            uexAudio.playFromSoundPool(1);
+            setTimeout("UNIT_TEST.assert(true)",8000);
+        },
+        "stopFromSoundPool":function(){
+            uexAudio.stopFromSoundPool(1);
+            UNIT_TEST.assert(true);
+        },
+        "closeSoundPool":function(){
+            uexAudio.closeSoundPool();
+            UNIT_TEST.assert(true);
+        }
+    };
+
+    UNIT_TEST.addCase("audio", uexAudioCase);
+}
