@@ -37,7 +37,6 @@ if (UNIT_TEST) {
         
         var json = '{"imageLocalUrl":"res://aa.jpg","appName":"uexQQ"}';
         uexQQ.shareLocalImgToQQ(appId, json, function(error,data) {
-                                alert(error);
                                 if(!error){
                                 UNIT_TEST.log("分享成功");
                                 
@@ -78,7 +77,7 @@ if (UNIT_TEST) {
 //       
 //    },
     "shareImgTextToQZone":function(){
-        var json = '{"title":"空间分享标题","summary":"空间分享消息摘要","targetUrl":"http://appcan.cn","imageUrl":["res://aa.png", "res://aa.jpg", "res://bb.png"]}';
+        var json = '{"title":"空间分享标题","summary":"空间分享消息摘要","targetUrl":"http://appcan.cn","imageUrl":["res://aa.jpg"]}';
         uexQQ.shareImgTextToQZone(appId, json, function(error,data) {
                                   if(!error){
                                   UNIT_TEST.log("分享成功");
