@@ -80,18 +80,6 @@ if (UNIT_TEST) {
             };
             UNIT_TEST.log("请展开键盘 输入@ 符号");
         },
-        "onAt":function () {
-            uexChatKeyboard.onAt=function () {
-                UNIT_TEST.assert(true);
-                UNIT_TEST.log("请输入@ 符号");
-            };
-        },
-        "insertAfterAt":function () {
-            uexChatKeyboard.onAt=function () {
-                uexChatKeyboard.insertAfterAt("守望宝宝");
-                UNIT_TEST.assert(true);
-            };
-        },
         "hideKeyboard":function () {
             uexChatKeyboard.hideKeyboard();
             UNIT_TEST.assert(true);

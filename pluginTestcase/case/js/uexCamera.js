@@ -43,18 +43,6 @@ if(UNIT_TEST){
                 });
         },
         "changeCameraPosition":function(){
-            uexCamera.openViewCamera(10, 0, size, size,"奥格瑞玛",100, function(data){
-                                     });
-            var position = uexCamera.changeCameraPosition(0);
-            if(position != -1){
-                UNIT_TEST.log(position);
-                UNIT_TEST.assert(true);
-            }else{
-                UNIT_TEST.assert(false);
-            }
-            uexCamera.removeViewCameraFromWindow();
-        },
-        "changeCameraPosition":function(){
             uexCamera.openViewCamera(50, 200, size, size,"奥格瑞玛",100,function(data){
                                      
             });
