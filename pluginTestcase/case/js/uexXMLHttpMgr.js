@@ -3,7 +3,7 @@
  */
 if (UNIT_TEST) {
 
-  UNIT_TEST.log("###########先启动服务器，更新请求的URL地址。###########");
+  //UNIT_TEST.log("###########先启动服务器，更新请求的URL地址。###########");
 
 	var uexXMLHttpMgrCase = {
 		"testPostInAppcanJS" : function() {
