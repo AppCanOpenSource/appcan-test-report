@@ -78,7 +78,7 @@ if (UNIT_TEST) {
                     assert=true;
                 }
             };
-            UNIT_TEST.log("请展开键盘 输入@ 符号");
+            UNIT_TEST.log("请展开键盘");
         },
         "hideKeyboard":function () {
             uexChatKeyboard.hideKeyboard();
