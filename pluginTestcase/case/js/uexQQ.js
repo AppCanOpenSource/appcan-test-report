@@ -1,5 +1,5 @@
 if (UNIT_TEST) {
-    var appId = '1105219505';
+    var appId = '1104950773';
     var uexQQCase = {
     "login":function(){
         uexQQ.login(appId,function(error, data) {
