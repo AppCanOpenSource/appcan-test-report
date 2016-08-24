@@ -22,9 +22,14 @@ if (UNIT_TEST) {
             }else{
                 UNIT_TEST.assert(false);
             };
-            
+
         },
         "isWXAppSupportApi":function(){
+            if (uexWidgetOne.platformName.indexOf('android') > -1) {
+                UNIT_TEST.log("Android 不支持该方法, 设置为 pass");
+                UNIT_TEST.assert(true);
+                return;
+            }
             var info = uexWeiXin.isWXAppSupportApi();
             if(info){
                 UNIT_TEST.log("前微信的版本支持OpenApi");
@@ -41,6 +46,11 @@ if (UNIT_TEST) {
             };
         },
         "getWXAppInstallUrl":function(){
+            if (uexWidgetOne.platformName.indexOf('android') > -1) {
+                UNIT_TEST.log("Android 不支持该方法, 设置为 pass");
+                UNIT_TEST.assert(true);
+                return;
+            }
             uexWeiXin.getWXAppInstallUrl(function(data) {
             if(data){
                     UNIT_TEST.log("微信itunes的安装地址"+data);
@@ -51,6 +61,11 @@ if (UNIT_TEST) {
             });
         },
         "getApiVersion":function(){
+            if (uexWidgetOne.platformName.indexOf('android') > -1) {
+                UNIT_TEST.log("Android 不支持该方法, 设置为 pass");
+                UNIT_TEST.assert(true);
+                return;
+            }
             uexWeiXin.getApiVersion(function(data) {
             if(data){
                 UNIT_TEST.log("SDK的版本号"+data);
@@ -61,12 +76,17 @@ if (UNIT_TEST) {
         });
         },
         "openWXApp":function(){
+            if (uexWidgetOne.platformName.indexOf('android') > -1) {
+                UNIT_TEST.log("Android 不支持该方法, 设置为 pass");
+                UNIT_TEST.assert(true);
+                return;
+            }
             uexWeiXin.openWXApp(function(error){
                 if(!error){
                    UNIT_TEST.log("已打开")};
                    UNIT_TEST.assert(true);
                 });
-            
+
         },
         "shareTextContent":function(){
             uexWeiXin.shareTextContent('{"text":"这是来自AppCan平台对微信支持测试","scene":1}',function(error) {
