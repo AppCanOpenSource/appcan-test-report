@@ -88,6 +88,6 @@ if (UNIT_TEST) {
         }
     };
 
-    UNIT_TEST.addCase("uploaderMgr", uexImageCase);
+    UNIT_TEST.addCase("uexImage", uexImageCase);
 }
 

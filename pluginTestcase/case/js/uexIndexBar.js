@@ -1,10 +1,10 @@
 if (UNIT_TEST) {
     var uexIndexBarCase = {
         "open":function(){
-            var x=400;
-            var y=600;
-            var width=200;
-            var height=400;
+            var x=1/2*screen.availWidth;
+            var y=1/2*screen.availHeight;
+            var width=1/4*screen.availWidth;
+            var height=1/4*screen.availHeight;
             var data={
                 textColor:"#E6942A",
                 indices:["索引1","索引2","索引3"]
