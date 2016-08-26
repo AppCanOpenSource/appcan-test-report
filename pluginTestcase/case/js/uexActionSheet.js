@@ -11,7 +11,7 @@ if (UNIT_TEST) {
                     "btnUnSelectBgImg": "res://btn.png",
                     "cancelBtnSelectBgImg": "res://cancel-act.png",
                     "cancelBtnUnSelectBgImg": "res://cancel.png",
-                    "textSize": "17",
+                    "textSize": 20,
                     "textNColor": "#ffffff",
                     "textHColor": "#ffffff",
                     "cancelTextNColor": "#ffffff",
