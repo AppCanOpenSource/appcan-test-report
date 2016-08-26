@@ -16,6 +16,13 @@ var UNIT_TEST = {
         success : 0,
         error : 0
     },
+    assertDelay:function (a,b) {
+        if (!b){
+            b=1000;
+        }
+        var code="UNIT_TEST.assert("+a+");";
+        setTimeout(code,b);
+    },
     assert : function(a) {
         var self = this;
         a ? (this.result.success++) : (this.result.error++);
@@ -29,6 +36,7 @@ var UNIT_TEST = {
         var out = $("<div style='color:"+(item.result?"black":"red")+"'></div><br>");
         out.text("CASE " + item.name + "  " + item.item + "  " + (item.result ? "成功" : "失败"));
         this.dom.append(out);
+        scrollToEnd();
         setTimeout(function(){
             self.trigger("_NEXTCASE", "");    
         },100);
@@ -54,6 +62,7 @@ var UNIT_TEST = {
         var out = $("<div></div>");
         out.text("LOG: " + str);
         this.dom.append(out);
+        scrollToEnd()
     }
     ,
     _summary : function() {
@@ -87,6 +96,9 @@ var UNIT_TEST = {
     }
 }
 
+function scrollToEnd() {
+    document.getElementById("end").scrollIntoView();
+}
 _.extend(UNIT_TEST, Backbone.Events);
 UNIT_TEST.on("assertRaise", function(err, data) {
 })
