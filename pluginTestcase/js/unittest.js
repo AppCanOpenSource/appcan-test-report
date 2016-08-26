@@ -18,10 +18,11 @@ var UNIT_TEST = {
     },
     assertDelay:function (a,b) {
         if (!b){
-            b=1000;
+            b = 1000;
         }
-        var code="UNIT_TEST.assert("+a+");";
-        setTimeout(code,b);
+        setTimeout(function(){
+                   UNIT_TEST.assert(a);
+                   },b);
     },
     assert : function(a) {
         var self = this;
