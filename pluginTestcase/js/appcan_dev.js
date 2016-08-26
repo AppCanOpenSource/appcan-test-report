@@ -6668,51 +6668,59 @@ window.appcan && appcan.define('device',function($,exports,module){
             callback = infoId.callback;
             infoId = infoId.infoId;
         }
-        var res = uexDevice.getInfo(infoId);
         if(appcan.isFunction(callback)){
-            callback(null,res);
+            uexDevice.cbGetInfo = function(optId,dataType,data){
+                if(dataType != 1){
+                    return callback(new Error('get info error'+infoId));
+                }
+                callback(null,data,dataType,optId);
+            };
         }
-        return res;
+        uexDevice.getInfo(infoId);
     }
-    
-    function screenCapture(quality,callback){
-        if(arguments.length === 1 && appcan.isPlainObject(quality)){
-            callback = quality.callback;
-            quality = quality.quality;
+
+    /*
+    获取所有设备相关的信息
+    @param Function callback 每个结果的回调
+    todo: 由于只能通过for循环获取系统信息所以用for
+
+    */
+    function getDeviceInfo(callback){
+        var deviceInfo = {};
+        for(var i=0,len = 18;i<len;i++){
+            getInfo(i,function(err,data){
+                completeCount++;
+                if(err){
+                    return callback(err);
+                }
+                var singleInfo = JSON.parse(data);
+                appcan.extend(deviceInfo,singleInfo);
+                callback(deviceInfo,singleInfo,i,len,completeCount);
+            });
         }
-        uexDevice.screenCapture(quality,function(error,data){
-            callback && callback(error,data);
+        return deviceInfo;
+    }
+
+    //更新设备信息
+    /*appcan.ready(function(){
+        updateDeviceInfo(function(completeCount){
+            if(completeCount > 17){
+                deviceInfo.isUpdatedAll = true;
+            }else{
+                deviceInfo.isUpdateAll = false;
+            }
+            deviceInfo.completeCount = completeCount;
+            appcan.extend(deviceRes,deviceInfo);
         });
-    }
-    
-    function brightness(val){
-        if(val){
-            uexDevice.setScreenBrightness(val);
-        }
-        else
-            return uexDevice.getScreenBrightness();
-    }
-    
-    function volume(val){
-        if(val){
-            uexDevice.setVolume(val);
-        }
-        else
-            return uexDevice.getVolume();
-    }
-    
-    function alwaysBright(val){
-        uexDevice.setScreenAlwaysBright(val);
-    }
+    });*/
+
+    //相关信息扩展到对象上
 
     module.exports = {
         vibrate:vibrate,
         cancelVibrate:cancelVibrate,
         getInfo:getInfo,
-        screenCapture:screenCapture,
-        brightness:brightness,
-        volume:volume,
-        setScreenAlwaysBright:alwaysBright
+        getDeviceInfo:getDeviceInfo
     };
 
 });
@@ -6801,263 +6809,6 @@ appcan && appcan.define('eventEmitter',function($,exports,module){
 */
 /*global appcan,uexFileMgr*/
 
-appcan && appcan.define('file',function($,exports,module){
-
-    //var uexFileMgr = window.uexFileMgr;
-    /*
-    获取操作 id
-
-    */
-    var getOptionId = appcan.getOptionId;
-
-    /*
-    文件是否存在
-    @param String filePath 文件路径
-    @param Function callback 又返回结果时的回调
-
-    */
-    
-    function exists(filePath){
-        return uexFileMgr.isFileExistByPath(filePath);
-    }
-    
-    /*
-    返回文件的相关信息
-    @param String filePath
-    @param Function callback
-    */
-    
-    function stat(filePath){
-		var ret = uexFileMgr.getFileTypeByPath(filePath);
-		return ret;
-    }
-
-    /*
-    打开流
-    @param String filePath 文件路径
-    @param String mode 打开方式
-
-    */
-    function open(filePath,mode){
-        var file = uexFileMgr.open({
-			path: filePath,
-			mode: mode
-		});
-		if(file){
-			return extendf(file);
-		}
-		return file;
-    }
-    
-       
-    /*
-    打开加密文件
-    @param String filePath 文件路径
-    @param String mode 模式
-    @param String key 加密字符串
-    @param Function callback 打开加密文件成功后的回调
-    
-    */
-    
-    function openSecure(filePath,mode,key){
-        var file = uexFileMgr.openWithPassword({
-			path: filePath,
-			password: key,
-			mode: mode
-		});
-		if(file){
-			return extendf(file)
-		}
-		return file;
-    }
-    /*
-    创建文件
-    @param String filePath 文件路径
-    @param Function callback 创建结果回调函数
-
-    */
-    function create(filePath){
-        var file = uexFileMgr.create({
-			path:filePath
-		});
-		if(file){
-			return extendf(file)
-		}
-		return file;
-    }
-    
-    /*
-    创建文件
-    @param String filePath 创建一个加密文件
-    @param String key 加密的字符串 
-    @param Function callback 创建结果回调函数
-
-    */
-    function createSecure(filePath,key){
-        var file = uexFileMgr.createWithPassword({
-			path: filePath,
-			password: key
-		});
-		if(file){
-			return extendf(file)
-		}
-		return file;
-    }
-	
-	function extendf(f){
-		var uexFile = {
-			id:f
-		}
-		uexFile.read = function(len,flag,callback){
-			uexFileMgr.readFile(this.id,len,flag,function(error,data){
-				callback(error,data);
-			})
-		}
-		uexFile.write = function(content,flag,callback){
-			uexFileMgr.writeFile(this.id, flag, content,function(ret){
-				callback(ret);
-			});
-		}
-		uexFile.seek = function(len){
-			return uexFileMgr.seekFile(this.id, len);
-		}
-		
-		uexFile.size = function(){
-			return uexFileMgr.getFileSize(this.id);
-		}
-		
-		uexFile.filepath = function(){
-			return uexFileMgr.getFilePath(this.id); 
-		}
-		
-		uexFile.offset = function(){
-			return uexFileMgr.getReaderOffset(this.id);
-		}
-		
-		uexFile.readPercent = function(percent,len,callback){
-			uexFileMgr.readPercent(this.id,percent,len,function(error,data){
-				callback(error,data);
-			})
-		}
-		 /*
-		关闭文件流
-		@param Object f 文件对象
-
-		*/
-		uexFile.close = function(){
-			uexFileMgr.closeFile(this.id);
-		}
-		return uexFile;
-	}
-
-    /*
-    删除文件
-    @param String filePath 文件路径
-    @param Function callback 删除结果回调函数
-
-    */
-
-    function deleteFile(filePath){
-        var ret = uexFileMgr.deleteFileByPath(filePath);
-	    return ret;
-    }
-
-	function renameFile(old,dest,cb){
-		uexFileMgr.renameFile(JSON.stringify({oldFilePath:old,newFilePath:dest}),function(obj){
-			cb && cb(obj.result);
-		});
-	}
-	
-
-    
-    /*
-    获取文件的真实路径
-    @param String path 要获取的文件路径
-    @param Function callback 获取成功后的回调    
-    
-    */
-    function getRealPath(filePath){
-        return uexFileMgr.getFileRealPath(filePath);
-    }
-	
-	function fileSize(filepath,callback){
-		var params = {
-			path:filepath,
-			unit:"B"
-		}
-		var data = JSON.stringify(params);
-		uexFileMgr.getFileSizeByPath(data,function(info){
-			callback && callback(info);
-		});
-	}
-	
-	function fileList(filepath){
-		return uexFileMgr.getFileListByPath(filepath);
-	}
-	
-	function readAll(filepath,cb,key){
-		var f = key?openSecure(filepath,1,key):open(filepath,1);
-		f.read(-1,0,function(error,data){
-			f.close();
-			cb && cb(error,data);
-		});
-	}
-	function writeAll(filepath,content,cb,key){
-		var f = key?openSecure(filepath,2,key):open(filepath,2);
-		f.write(content,0,function(error){
-			f.close();
-			cb && cb(error);
-		});
-	}
-    /*
-    文件管理器，选择单个文件
-    @param String path 文件管理器打开路径
-    @param Function callback 获取成功后的回调    
-    
-    */
-    function explorer(filePath,callback){
-		uexFileMgr.explorer(filePath,function(path){
-			callback && callback(null,path);
-		});
-    }
-
-    /*
-    文件管理器，选择多个文件
-    @param String path 文件管理器打开路径
-    @param Function callback 获取成功后的回调
-    
-    */
-    function multiExplorer(filePath,callback){
-        uexFileMgr.multiExplorer(filePath,function(paths){
-			callback && callback(null,paths);
-		});
-    }
-    
-    
-    
-    
-    module.exports = {
-        wgtPath:'wgt://',
-        resPath:'res://',
-        wgtRootPath:'wgtroot://',
-        open:open,
-		create:create,
-		createSecure:createSecure,
-        openSecure:openSecure,
-        exists:exists,
-        stat:stat,
-        getRealPath:getRealPath,
-		remove:deleteFile,
-		rename:renameFile,
-		fileSize:fileSize,
-        fileList:fileList,		
-		readAll:readAll,
-		writeAll:writeAll,
-        explorer:explorer,
-        multiExplorer:multiExplorer
-    };
-
-});
 /*
     author:dushaobin
     email:shaobin.du@zymobi.com
@@ -7220,7 +6971,7 @@ appcan && appcan.define('request', function($, exports, module) {
         // Whether the request is to another domain
         crossDomain: false,
         // Default timeout
-        timeout: 0,
+        timeout: 30000,
         //默认不设置content type
         contentType: false,
         // Whether data should be serialized to string
@@ -7448,7 +7199,7 @@ appcan && appcan.define('request', function($, exports, module) {
         //添加app认证信息
         addAppVerify(settings);
 
-        if (settings.data && (settings.contentType === false || settings.contentType == "multipart/form-data")) {
+        if (settings.data && settings.contentType === false) {
             for (name in settings.data) {
                 //fixed Number 类型bug
                 if (appcan.isPlainObject(settings.data[name])) {
@@ -7475,21 +7226,17 @@ appcan && appcan.define('request', function($, exports, module) {
             }
         }
         //兼容前端中断请求返回错误提示
-        if (settings.timeout > 0 && !req.abortTimeout) req.abortTimeout = setTimeout(function() {
-            if (req.abortTimeout) {
-                clearTimeout(req.abortTimeout);
-                req.abortTimeout = null;
-            }
-            xhr.onData = empty
-            xhr.close(req.id)
-            ajaxError(null, 'timeout', null, xhr, settings, deferred)
-        }, settings.timeout)
+        // if (settings.timeout > 0 && !window.abortTimeout) window.abortTimeout = setTimeout(function() {
+        //     if (window.abortTimeout) {
+        //         clearTimeout(window.abortTimeout);
+        //         window.abortTimeout = null;
+        //     }
+        //     xhr.onData = empty
+        //     xhr.close(req.id)
+        //     ajaxError(null, 'timeout', null, xhr, settings, deferred)
+        // }, settings.timeout)
         xhr.send(req.id,0,function() {
             var resArg = [xhr];
-            if (req.abortTimeout) {
-                clearTimeout(req.abortTimeout);
-                req.abortTimeout = null;
-            }
 			resArg.push(req);
             for (var i = 0, len = arguments.length; i < len; i++) {
                 resArg.push(arguments[i]);
@@ -10282,16 +10029,17 @@ appcan && appcan.define('download',function($,exports,module){
 		req.close = function(){
 			uexDownloaderMgr.closeDownloader(this.id);
 		}
+		callback(!req,data,dataType,req);
         return req;
     }
     function closeDownloader(req){
-        req && req.close();
+        req.close();
     }
     function setHeaders(req,info){
-        req && req.setHeaders(info);
+        req.setHeaders(info);
     }
     function download(req,url,savePath,breakPoint,downloadCall,successCall,errorCall,cancelCall){
-        req && req.download && req.download({url:url,savePath:savePath,range:breakPoint,progress:downloadCall,success:successCall,error:errorCall,cancel:cancelCall})
+        req.download && req.download({url:url,savePath:savePath,range:breakPoint,progress:downloadCall,success:successCall,error:errorCall,cancel:cancelCall})
     }
     module.exports = {
         create: createDownloader,
@@ -10494,125 +10242,6 @@ appcan.define('ajax', function($, exports, module){
 /**
  *update:修改run方法扩展全局配置option到run对象/2016.01.29/jiaobingqian
  */
-appcan.define("icache", function($, exports, module) {
-    var opid = 1000;
-    var CACHE_PATH = "box://icache/";
-    function iCache(option) {
-        var self = this;
-        appcan.extend(this, appcan.eventEmitter);
-        self.waiting = [];
-        self.running = [];
-        self.option = $.extend({
-            maxtask : 3
-        }, option, true);
-        self.realpath = appcan.file.getRealPath("box://");
-        self.on("NEXT_SESSION", self._next);
-		self.emit("NEXT_SESSION");
-
-    }
-
-
-    iCache.prototype = {
-        _progress : function(data, session) {
-            if (session.progress) {
-                session.progress(data, session);
-            }
-        },
-        _success : function(fpath, session) {
-            var self = this;
-            appcan.download.close(session.dlId);
-            if (session.success) {
-                session.success(fpath, session);
-            } else if (session.dom && session.dom.length) {
-                switch(session.dom[0].tagName.toLowerCase()) {
-                case "img":
-                    session.dom.attr("src", fpath);
-                    break;
-                default:
-                    session.dom.css("background-image", "url(file://" + fpath + ") !important");
-                    break;
-                }
-            }
-            var index = self.running.valueOf(session);
-            index != undefined && self.running.splice(index, 1);
-            self.emit("NEXT_SESSION");
-        },
-        _fail : function(session) {
-            var self = this;
-            appcan.download.close(session.dlId);
-            var index = self.running.valueOf(session);
-            index != undefined && self.running.splice(index, 1);
-            if (session.fail) {
-                session.fail(session);
-            }
-            self.emit("NEXT_SESSION");
-        },
-        _next : function() {
-            var self = this;
-            if (!self.realpath)
-                return;
-            if (self.running.length >= self.option.maxtask)
-                return;
-            var session = self.waiting.shift();
-            if (!session)
-                return;
-            self.running.push(session);
-            self._download(session);
-        },
-        _download : function(session) {
-            var self = this;
-            var fid = appcan.crypto.md5(session.url);
-            var fpath = self.realpath + "/icache/" + fid;
-			if(appcan.file.exists(fpath))
-			{
-				self._success(fpath, session);
-			}else {
-				function downloadCB(req, fileSize, percent, status) {
-					var data = {
-						fileSize : fileSize,
-						percent : percent,
-						status : status
-					};
-					switch(parseInt(data.status)) {
-					case 0:
-						self._progress(data, session)
-						break;
-					case 1:
-						self._success(fpath, session);
-						break;
-					default:
-						self._fail(session);
-						break;
-					}
-				}
-				session.dlId = appcan.download.create();
-				{
-					if (session.dlId) {
-						session.header && appcan.download.setHeaders(session.dlId, session.header);
-						appcan.download.run(session.dlId, session.url, fpath, '0', downloadCB,downloadCB,downloadCB,downloadCB)
-					} else
-						downloadCB(session.dlId, 0, 0, 4)
-				}; 
-			}           
-        },
-        run : function(option) {
-            var self = this;
-            var session = $.extend({
-                id : ("" + (opid++)),
-                status : 0
-            }, option, true);
-            self.waiting.push(session);
-            self.emit("NEXT_SESSION");
-        },
-        clearcache:function(){
-            uexFileMgr.deleteFileByPath(CACHE_PATH);
-        }
-    }
-
-    module.exports = function(option) {
-        return new iCache(option);
-    };
-});
 
 /*!
  * An jQuery | zepto plugin for lazy loading images.
