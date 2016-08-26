@@ -33,80 +33,46 @@
                     </div>
                 </div>
             </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="Button_DgxEcP" onclick="openTestCase('uexFileMgr')">uexFileMgr</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexXmlHttpMgr" onclick='openTestCase("uexXMLHttpMgr")'>uexXmlHttpMgr</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexUploaderMgr" onclick='openTestCase("uexUploaderMgr")'>uexUploaderMgr</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexDatabaseMgr" onclick='openTestCase("uexDatabaseMgr")'>uexDatabaseMgr</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexDownloaderMgr" onclick='openTestCase("uexDownloaderMgr")'>uexDownloaderMgr</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexDevice" onclick='openTestCase("uexDevice")'>uexDevice</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexSocketMgr" onclick='openTestCase("uexSocketMgr")'>uexSocketMgr</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexWeiXin" onclick='openTestCase("uexWeiXin")'>uexWeiXin</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexQQ" onclick='openTestCase("uexQQ")'>uexQQ</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexImage" onclick='openTestCase("uexImage")'>uexImage</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexAudio" onclick='openTestCase("uexAudio")'>uexAudio</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexButton" onclick='openTestCase("uexButton")'>uexButton</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexLocation" onclick='openTestCase("uexLocation")'>uexLocation</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexSina" onclick='openTestCase("uexSina")'>uexSina</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexChatKeyboard" onclick='openTestCase("uexChatKeyboard")'>uexChatKeyboard</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexCamera" onclick='openTestCase("uexCamera")'>uexCamera</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexIndexBar" onclick='openTestCase("uexIndexBar")'>uexIndexBar</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexVideo" onclick='openTestCase("uexVideo")'>uexVideo</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                 <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexControl" onclick='openTestCase("uexControl")'>uexControl</div>
-             </div>
-             <div class="btncss" data-control="BOX">
-                 <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexAliPay" onclick='openTestCase("uexAliPay")'>uexAliPay</div>
-             </div>
-             <div class="btncss" data-control="BOX">
-                 <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexScanner" onclick='openTestCase("uexScanner")'>uexScanner</div>
-             </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexActionSheet" onclick='openTestCase("uexActionSheet")'>uexActionSheet</div>
-            </div>
-            <div class="btncss" data-control="BOX">
-                <div class="button ub ub-ac bc-text-head ub-pc bc-btn" id="uexBaiduMap" onclick='openTestCase("uexBaiduMap")'>uexBaiduMap</div>
-            </div>
+            
+            <div id="pluginList"></div>
         </div>
         <script src="js/appcan.js">
         </script>
         <script src="js/appcan.control.js">
         </script>
+        <script type="text/javascript">
+        var plugins = [
+            "uexFileMgr",
+            "uexXmlHttpMgr",
+            "uexUploaderMgr",
+            "uexDatabaseMgr",
+            "uexDownloaderMgr",
+            "uexDevice",
+            "uexSocketMgr",
+            "uexWeiXin",
+            "uexQQ",
+            "uexImage",
+            "uexAudio",
+            "uexButton",
+            "uexLocation",
+            "uexSina",
+            "uexChatKeyboard",
+            "uexCamera",
+            "uexIndexBar",
+            "uexVideo",
+            "uexControl",
+            "uexAliPay",
+            "uexScanner",
+            "uexActionSheet",
+            "uexBaiduMap"
+        ];
+        var dom = $("#pluginList")
+        plugins.forEach(function(aPlugin){
+            dom.append("<div class=\"btncss\" data-control=\"BOX\"><div class=\"button ub ub-ac bc-text-head ub-pc bc-btn\" onclick='openTestCase(\"" + aPlugin + "\")'>" + aPlugin + "</div></div>")
+        });
+        </script>
+        
+        
         <script src="js/appcan.scrollbox.js">
         </script>
         <script src="js/template.import.js">
