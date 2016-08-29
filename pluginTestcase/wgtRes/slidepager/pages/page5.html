@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--<meta name="viewport"content="target-densitydpi=device-dpi,width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">-->
+  <link rel="stylesheet" type="text/css" href="../css/index.css">
+  <link rel="stylesheet" href="../css/ui-base.css">
+  <link rel="stylesheet" href="../css/ui-box.css">
+  <link rel="stylesheet" href="../css/ui-color-v3.css">
+  <link rel="stylesheet" href="../css/new.css">
+
+  <title>page6</title>
+   <script src="../js/zy_control.js"></script>
+  <script src="../js/zy_click.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/zy_json.js"></script>
+  <script src="../js/zy_icache.js"></script>  
+  <script type="text/javascript">
+window.onload = function(){
+				//jiazai();
+} 
+function jiazai(){ 
+                var data=JSON.parse(getLocVal("data"));
+				var iPath=getLocVal("imgPath");
+				//alert(iPath);
+			     var img=iPath+5+".png";
+				 //alert(img);
+		     	$$('cont_img').src=img;
+				$$("head_name")[0].innerHTML =data[5].case_name;
+				var datar = data[5].case_introduction;
+				if (datar.length <= 100) {
+					$$("bott_con")[0].innerHTML = datar;
+				}
+				else {
+					$$("bott_con")[0].innerHTML = datar.substr(0, 100) + "...";
+				}	 
+}
+function openSlideWindow(){
+	     var topMargin= 0;
+		  var contentArray = {};
+		  var iconArray = {};
+		  var colorArray = {};
+      uexSlidePager.openSlidePager(topMargin, contentArray, iconArray, colorArray);
+}
+</script>
+ </head>
+ <body ontouchstart class="um-vp">
+ <div class="ub up c-wh ub-ac uc-a ub-ver">
+     <div class="uc-a ub  ub-ver het" ontouchstart="zy_touch('btn-act')" onclick="">
+         <div class="mar-1">
+             <div  id="head_name" class="uinn font1 marg">
+                 掌上运维
+             </div>
+         </div>
+
+         <div class="mar-3 ub ub-ver">
+             	<div id="bott_con" class="ub mar-4 uinf font2 ">
+广东移动掌上运维app对接到移动原有账号平台，实现单点登录、个人应用管理容器、企业应用商店、内部公告等功能模块；不仅解决了原有移动应用技术不同、独立开发、独立接入且接入方式各异，管控分散，缺乏统一的规划和支撑的种种弊端，同时大大降低了网络安全和信息泄露的风险。
+             </div>
+         </div>
+     </div>
+ </div>
+ </body>
+</html>

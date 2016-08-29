@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--<meta name="viewport"content="target-densitydpi=device-dpi,width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">-->
+  <link rel="stylesheet" type="text/css" href="../css/index.css">
+  <link rel="stylesheet" href="../css/ui-base.css">
+  <link rel="stylesheet" href="../css/ui-box.css">
+  <link rel="stylesheet" href="../css/ui-color-v3.css">
+  <link rel="stylesheet" href="../css/new.css">
+
+  <title>page3</title>
+  <script src="../js/zy_control.js"></script>
+  <script src="../js/zy_click.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/zy_json.js"></script>
+  <script src="../js/zy_icache.js"></script>  
+  <script type="text/javascript">
+window.onload = function(){
+				//jiazai();
+}  
+function jiazai(){ 
+                var data=JSON.parse(getLocVal("data"));
+				var iPath=getLocVal("imgPath");
+			     var img=iPath+2+".png";
+		     	$$('cont_img').src=img;
+				$$("head_name")[0].innerHTML =data[2].case_name;
+				var datar = data[2].case_introduction;
+				if (datar.length <= 100) {
+					$$("bott_con")[0].innerHTML = datar;
+				}
+				else {
+					$$("bott_con")[0].innerHTML = datar.substr(0, 100) + "...";
+				}	 
+}
+function openSlideWindow(){
+	     var topMargin= 0;
+		  var contentArray = {};
+		  var iconArray = {};
+		  var colorArray = {};
+      uexSlidePager.openSlidePager(topMargin, contentArray, iconArray, colorArray);
+}
+</script>
+ </head>
+ <body ontouchstart class="um-vp">
+ <div class="ub up c-wh ub-ac uc-a ub-ver">
+     <div class="uc-a ub  ub-ver het" ontouchstart="zy_touch('btn-act')" onclick="">
+         <div class="mar-1">
+             <div  id="head_name" class="uinn font1 marg">
+                 普华e家
+             </div>
+         </div>
+         <div class="mar-3 ub ub-ver">
+             	<div id="bott_con" class="ub mar-4 uinf font2 ">
+                  普华e家是一款移动考勤类App，该应用使用Mas服务对接国电原有业务系统，并结合国电业务实际，实现了移动签到、请假、移动审批等功能，快速满足了客户的需求。
+             </div>
+         </div>
+     </div>
+ </div>
+ </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--<meta name="viewport"content="target-densitydpi=device-dpi,width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">-->
+  <link rel="stylesheet" type="text/css" href="../css/index.css">
+  <link rel="stylesheet" href="../css/ui-base.css">
+  <link rel="stylesheet" href="../css/ui-box.css">
+  <link rel="stylesheet" href="../css/ui-color-v3.css">
+  <link rel="stylesheet" href="../css/new.css">
+  <title>page1</title>
+   <script src="../js/zy_control.js"></script>
+  <script src="../js/zy_click.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/zy_json.js"></script>
+  <script src="../js/zy_icache.js"></script>  
+  <script type="text/javascript">
+window.onload = function(){
+	          // alert(123);
+				//jiazai();
+} 
+
+function jiazai(){ 
+                var data=JSON.parse(getLocVal("data"));
+		 		var iPath=getLocVal("imgPath");
+				//alert(iPath);
+			     var img=iPath+0+".png";
+		     	$$('cont_img').src=img;
+				$$("head_name")[0].innerHTML =data[0].case_name;
+				var datar = data[0].case_introduction;
+				if (datar.length <= 100) {
+					$$("bott_con")[0].innerHTML = datar;
+				}
+				else {
+					$$("bott_con")[0].innerHTML = datar.substr(0, 100) + "...";
+				}	 
+}
+function openSlideWindow(){
+	      var topMargin= 0;
+		  var contentArray ={};
+		  var iconArray ={};
+		  var colorArray ={};
+      uexSlidePager.openSlidePager(topMargin, contentArray, iconArray, colorArray);
+} 
+</script>
+ </head>
+ <body ontouchstart class="um-vp" onclick="">
+ <div class="ub up c-wh ub-ac uc-a ub-ver" >
+     <div class="uc-a ub  ub-ver het ">
+         <div class="mar-1">
+             <div  id="head_name" class="uinn font1 marg">
+                移动机务
+             </div>
+         </div>
+         <div class=" ub ub-ver">
+             	<div id="bott_con" class="ub uinf font2" >
+东航移动机务面向航空领域内部员工，为空乘人员提供飞机信息、航班动态、旅客详情、航班详情等信息，为机务人员更好完成航班服务工作提供了有效支撑。
+             </div>
+         </div>
+     </div>
+ </div>
+ </body>
+</html>

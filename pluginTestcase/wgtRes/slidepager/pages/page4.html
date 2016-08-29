@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--<meta name="viewport"content="target-densitydpi=device-dpi,width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">-->
+  <link rel="stylesheet" type="text/css" href="../css/index.css">
+  <link rel="stylesheet" href="../css/ui-base.css">
+  <link rel="stylesheet" href="../css/ui-box.css">
+  <link rel="stylesheet" href="../css/ui-color-v3.css">
+  <link rel="stylesheet" href="../css/new.css">
+
+  <title>page4</title>
+  <script src="../js/zy_control.js"></script>
+  <script src="../js/zy_click.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/zy_json.js"></script>
+  <script src="../js/zy_icache.js"></script>  
+  <script type="text/javascript">
+window.onload = function(){
+				//jiazai();
+} 
+function jiazai(){ 
+                var data=JSON.parse(getLocVal("data"));
+				var iPath=getLocVal("imgPath");
+			     var img=iPath+3+".png";
+		     	$$('cont_img').src=img;
+				$$("head_name")[0].innerHTML =data[3].case_name;
+				var datar = data[3].case_introduction;
+				if (datar.length <= 100) {
+					$$("bott_con")[0].innerHTML = datar;
+				}
+				else {
+					$$("bott_con")[0].innerHTML = datar.substr(0, 100) + "...";
+				}	 
+}
+function openSlideWindow(){
+	     var topMargin= 0;
+		  var contentArray = {};
+		  var iconArray = {};
+		  var colorArray = {};
+      uexSlidePager.openSlidePager(topMargin, contentArray, iconArray, colorArray);
+}
+
+</script>
+ </head>
+ <body ontouchstart class="um-vp">
+ <div class="ub up c-wh ub-ac uc-a ub-ver">
+     <div class="uc-a ub  ub-ver het" ontouchstart="zy_touch('btn-act')" onclick="">
+         <div class="mar-1">
+             <div  id="head_name" class="uinn font1 marg">
+                  中化移动办公
+             </div>
+         </div>
+
+         <div class="mar-3 ub ub-ver">
+             	<div id="bott_con" class="ub mar-4 uinf font2 ">
+  中化集团移动办公适用于集团化企业移动化办公，提供多级审批、收发文管理、公告管理、请示答复等功能模块，为大型公司提供工作效率提供支撑。
+             </div>
+         </div>
+     </div>
+ </div>
+ </body>
+</html>
