@@ -42,5 +42,15 @@ define(["moment"], function(moment){
       duration: time
     });
   }
+  CC.alert = function(msg,cb){
+    CC.log(msg);
+    uexWindow.confirm({
+      title: "UNIT_TEST",
+      message: msg,
+      buttonLabels: "OK"
+    },function(){
+        if (cb && isFunction(cb)){cb()};
+    });
+  };
   return CC;
 });
