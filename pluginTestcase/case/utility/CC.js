@@ -1,3 +1,6 @@
+/**
+ * @author lkl
+ */
 define(["moment"], function(moment){
   var CC = {};
   var isFunction = function (value) {
