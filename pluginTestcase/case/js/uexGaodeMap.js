@@ -473,31 +473,6 @@ if (UNIT_TEST) {
                 UNIT_TEST.assert(false);
              }
         },
-        "hideCustomButtons": function(){
-             var buttons='[10010]';
-             var data = uexGaodeMap.hideCustomButtons(buttons);
-             if (data) {
-                 UNIT_TEST.assert(true);
-             } else {
-                UNIT_TEST.assert(false);
-             }
-        },
-       "deleteCustomButton": function(){
-            var param={
-                id: 10011,
-                bgImage:"res://button1.png",
-                title:"title",
-                titleColor:"#F00",
-                x:50,
-                y:50,
-                width:35,
-                height:16
-            }
-            var buttonInfo =JSON.stringify(param)
-            var button = uexGaodeMap.setCustomButton(buttonInfo);
-            var result = uexGaodeMap.deleteCustomButton(button);
-            UNIT_TEST.assert(result);
-        },
         "onMarkerClickListener": function(){
             UNIT_TEST.log("请点击标注...");
             uexGaodeMap.onMarkerClickListener = function(data) {
@@ -556,6 +531,31 @@ if (UNIT_TEST) {
                 }
                 UNIT_TEST.log("[onCustomButtonClick id]" + data);
             }
+        },
+        "hideCustomButtons": function(){
+             var buttons='[10010]';
+             var data = uexGaodeMap.hideCustomButtons(buttons);
+             if (data) {
+                 UNIT_TEST.assert(true);
+             } else {
+                UNIT_TEST.assert(false);
+             }
+        },
+       "deleteCustomButton": function(){
+            var param={
+                id: 10011,
+                bgImage:"res://button1.png",
+                title:"title",
+                titleColor:"#F00",
+                x:50,
+                y:50,
+                width:35,
+                height:16
+            }
+            var buttonInfo =JSON.stringify(param)
+            var button = uexGaodeMap.setCustomButton(buttonInfo);
+            var result = uexGaodeMap.deleteCustomButton(button);
+            UNIT_TEST.assert(result);
         },
 
         "clear": function(){
