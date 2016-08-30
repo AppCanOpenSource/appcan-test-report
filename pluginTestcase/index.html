@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div id="pluginList"></div>
         </div>
         <script src="js/appcan.js">
@@ -76,15 +76,16 @@
             "uexApplePay",
             "uexLog",
             "uexUnionPay",
-            "uexUmeng"
+            "uexUmeng",
+            "uexGaodeMap"
         ];
         var dom = $("#pluginList")
         plugins.forEach(function(aPlugin){
             dom.append("<div class=\"btncss\" data-control=\"BOX\"><div class=\"button ub ub-ac bc-text-head ub-pc bc-btn\" onclick='openTestCase(\"" + aPlugin + "\")'>" + aPlugin + "</div></div>")
         });
         </script>
-        
-        
+
+
         <script src="js/appcan.scrollbox.js">
         </script>
         <script src="js/template.import.js">
