@@ -1,6 +1,6 @@
 if (UNIT_TEST) {
     var uexCreditCardRecCase = {
-        "case": function(){
+        "openCreditCardRec": function(){
             var tokenStr = "f06a7eca39134918a18dc4d7c45ee49f";
             //测试卡信息可以用 http://kaku.51credit.com/bocomm/jhbiaozhun/
             uexCreditCardRec.openCreditCardRec(tokenStr, function(error,data){
