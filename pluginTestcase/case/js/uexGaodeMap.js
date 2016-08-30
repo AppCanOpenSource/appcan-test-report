@@ -14,8 +14,8 @@ if (UNIT_TEST) {
                  left:0,
                  top:20,
                  width:width,
-                 height:640,
-                 isScrollWithWeb:false,
+                 height:400,
+                 isScrollWithWeb:true,
                  longitude:114.402815,
                  latitude:30.475798
              };
@@ -127,7 +127,7 @@ if (UNIT_TEST) {
                     id: 10001,
                     longitude:114.402965,
                     latitude:30.475845,
-                    icon:"http://www.iconpng.com/png/mapmarkers/marker_inside_azure.png",
+                    icon:"res://mark.png",
                     bubble:{
                         title:"title1",
                         subTitle:"subTitle1"
@@ -154,32 +154,14 @@ if (UNIT_TEST) {
 
         },
         "setMarkerOverlay": function(){
-            //先add Markder
-            var param = [
-                {
-                    id: "10003",
-                    longitude:114.402965,
-                    latitude:30.475845,
-                    icon:"http://www.iconpng.com/png/mapmarkers/marker_inside_azure.png",
-                    bubble:{
-                        title:"title1",
-                        subTitle:"subTitle1"
-                    }
-                }
-            ];
-            var markerInfos = JSON.stringify(param);
-            var markers = uexGaodeMap.addMarkersOverlay(markerInfos);
             var params = {
+                id:10002,
                 bubble:{
                     title:"change-title",
                     subTitle:"change-subTitle"
                 }
             };
-
-            var marker = markers[0] ;//addMarkersOverlay接口返回的marker对象
-            params.id = marker;
-            var makerInfo = JSON.stringify(params);
-            uexGaodeMap.setMarkerOverlay(makerInfo);
+            uexGaodeMap.setMarkerOverlay(params);
             UNIT_TEST.assertDelay(true, 2000);
         },
         "addPolylineOverlay": function(){
@@ -211,12 +193,8 @@ if (UNIT_TEST) {
             }
 
         },
-        "removeOverlays": function(){
-            var overlays = '[10001, 10002, 10003, 10004]';
-            uexGaodeMap.removeOverlays(overlays);
-            UNIT_TEST.assertDelay(true);
-        },
         "addArcOverlay": function(){
+            if (uexWidgetOne.platformName.indexOf('android') > -1) {
             var jsonstr = {
                 id: 152,
                 strokeColor:"#f00",
@@ -240,6 +218,10 @@ if (UNIT_TEST) {
                 UNIT_TEST.assert(false);
             } else {
                 UNIT_TEST.assertDelay(true);
+            }
+            }else{
+                UNIT_TEST.log("addArcOverlay仅支持安卓，iOS请忽略!");
+                UNIT_TEST.assert(true);
             }
         },
         "addCircleOverlay": function(){
@@ -272,15 +254,15 @@ if (UNIT_TEST) {
                         latitude:"30.375845"
                     },
                     {
-                        longitude:"115.402965",
+                        longitude:"114.404965",
                         latitude:"30.375845"
                     },
                     {
                         longitude:"114.402965",
-                        latitude:"31.375845"
+                        latitude:"30.385845"
                     },
                     {
-                        longitude:"114.402965",
+                        longitude:"114.403965",
                         latitude:"30.375845"
                     }
                 ]
@@ -316,12 +298,6 @@ if (UNIT_TEST) {
              } else {
                  UNIT_TEST.assert(true);
              }
-        },
-        "removeMarkersOverlays": function(){
-            var params = [10001];
-            var data = JSON.stringify(params);
-            uexGaodeMap.removeMarkersOverlays(data);
-            UNIT_TEST.assert(true);
         },
         "poiSearch": function(){
             var jsonstr = {
@@ -428,26 +404,36 @@ if (UNIT_TEST) {
             UNIT_TEST.assert(true);
         },
         "setMyLocationButtonVisible": function(){
+            if (uexWidgetOne.platformName.indexOf('android') > -1) {
             var params = {
                 visible:true
             }
             var json = JSON.stringify(params);
             uexGaodeMap.setMyLocationButtonVisible(json);
             UNIT_TEST.assertDelay(true);
+            }else{
+               UNIT_TEST.log("setMyLocationButtonVisible仅支持安卓，iOS请忽略!");
+               UNIT_TEST.assert(true);
+            }
         },
         "setZoomVisible": function(){
+            if (uexWidgetOne.platformName.indexOf('android') > -1) {
              var params = {
                 visible:true
             }
             var json = JSON.stringify(params);
             uexGaodeMap.setZoomVisible(json);
             UNIT_TEST.assertDelay(true);
+            }else{
+                UNIT_TEST.log("setZoomVisible仅支持安卓，iOS请忽略!");
+                UNIT_TEST.assert(true);
+            }
         },
 
         "setCustomButton": function(){
             var param={
                 id: 10010,
-                bgImage:"res://button1.png",
+                bgImage:"res://button2.png",
                 title:"title",
                 titleColor:"#F00",
                 x:50,
@@ -473,10 +459,11 @@ if (UNIT_TEST) {
                 UNIT_TEST.assert(false);
              }
         },
+
         "onMarkerClickListener": function(){
             UNIT_TEST.log("请点击标注...");
             uexGaodeMap.onMarkerClickListener = function(data) {
-                UNIT_TEST.log("[onMarkerClickListener data]" + JSON.stringify(data));
+                UNIT_TEST.log("[onMarkerClickListener data]" + data);
                 if (data) {
                     UNIT_TEST.assert(true);
                 } else {
@@ -485,33 +472,37 @@ if (UNIT_TEST) {
             }
         },
         "onMarkerBubbleClickListener": function(){
-            UNIT_TEST.log("请点击气泡...");
-            uexGaodeMap.onMarkerBubbleClickListener = function(data) {
-                UNIT_TEST.log("[onMarkerBubbleClickListener data]" + JSON.stringify(data));
+             if (uexWidgetOne.platformName.indexOf('android') > -1) {
+                UNIT_TEST.log("请点击气泡...");
+                uexGaodeMap.onMarkerBubbleClickListener = function(data) {
+                UNIT_TEST.log("[onMarkerBubbleClickListener data]" + data);
                 if (data) {
                     UNIT_TEST.assert(true);
                 } else {
                     UNIT_TEST.assert(false);
                 }
             }
+             }else{
+                 UNIT_TEST.log("onMarkerBubbleClickListener仅支持安卓，iOS请忽略!");
+                 UNIT_TEST.assert(true);
+             }
         },
 
          "onMapClickListener": function(){
             UNIT_TEST.log("请点击地图...");
             uexGaodeMap.onMapClickListener = function(data) {
-                UNIT_TEST.log("[onMarkerBubbleClickListener data]" + JSON.stringify(data));
+                UNIT_TEST.log("[onMapClickListener data]" + data);
                 if (data) {
                     UNIT_TEST.assert(true);
                 } else {
                     UNIT_TEST.assert(false);
                 }
-                UNIT_TEST.log("[onMapClickListener data]" + data);
             }
         },
         "onMapLongClickListener": function(){
             UNIT_TEST.log("请长按地图...");
             uexGaodeMap.onMapLongClickListener = function(data) {
-                 UNIT_TEST.log("[onMarkerBubbleClickListener data]" + JSON.stringify(data));
+                 UNIT_TEST.log("[onMapLongClickListener data]" + JSON.stringify(data));
                 if (data) {
                     UNIT_TEST.assert(true);
                 } else {
@@ -557,7 +548,6 @@ if (UNIT_TEST) {
             var result = uexGaodeMap.deleteCustomButton(button);
             UNIT_TEST.assert(result);
         },
-
         "clear": function(){
             uexGaodeMap.clear();
             UNIT_TEST.assertDelay(true);
@@ -598,7 +588,7 @@ if (UNIT_TEST) {
             });
         },
          "delete": function(){
-            var params = ["北京", "佛山市", "河源市", "深圳市"];
+            var params = ["武汉", "广东省"];
             var json = JSON.stringify(params);
             var isDeleteExecute = false;
             if (uexWidgetOne.platformName.indexOf('android') > -1) {
@@ -640,20 +630,9 @@ if (UNIT_TEST) {
         "download": function(){
             var params = [
               {
-                  city:'佛山市'
+                  city:'武汉'
               }
-              ,
-              {
-                  city:'河源市'
-              }
-              ,
-              {
-                  city:'深圳市'
-              }
-//              ,
-//              {
-//                  province:'湖北省'
-//              }
+
             ];
             var json = JSON.stringify(params);
             var isDownloadExecute = false;
@@ -672,20 +651,20 @@ if (UNIT_TEST) {
         },
 
         "pause": function(){
-            var params = ["佛山市", "河源市", "深圳市"];
+            var params = ["武汉"];
             var data = JSON.stringify(params);
             uexGaodeMap.pause(data);
             UNIT_TEST.assert(true);
         },
         "restart": function(){
-            var params = ["佛山市", "河源市", "深圳市"];
+            var params = ["武汉"];
             var data = JSON.stringify(params);
             uexGaodeMap.restart(data);
             UNIT_TEST.assert(true);
         },
         "isUpdate": function(){
             var params = {
-                    city:'深圳市'  //该市需要是地图已经下载过的，在本地有的
+                    city:'武汉'  //该市需要是地图已经下载过的，在本地有的
                 };
             var json = JSON.stringify(params);
             uexGaodeMap.isUpdate(json,function(error, data){
@@ -730,7 +709,7 @@ if (UNIT_TEST) {
 
         /*
         "onReceiveLocation": function(){  //位置变化时才会被调用
-            uexGaodeMap.onMarkerBubbleClickListener = function(data) {
+            uexGaodeMap.onReceiveLocation = function(data) {
                 if (!data) {
                     UNIT_TEST.assert(true);
                 } else {
