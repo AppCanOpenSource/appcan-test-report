@@ -52,7 +52,7 @@ if (UNIT_TEST) {
                     isSearchNote:false,
                     isSearchUrl:false
                 };
-                uexContact.search(option, function(error, data) {
+                uexContact.searchItem(contactName, option, function(error, data) {
                     if (!error){
                         console.dir(data[0]);
                         contactId=data[0].contactId;
@@ -84,6 +84,7 @@ if (UNIT_TEST) {
                     isSearchUrl:false
                 };
                 uexContact.search(option, function(error, data) {
+                    setTimeout(1000);
                     UNIT_TEST.log(JSON.stringify(data));
                     UNIT_TEST.assert(!error);
                 });
