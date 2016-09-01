@@ -1,8 +1,9 @@
 if (UNIT_TEST) {
     var uexBaiduMapCase = {
         "open":function(){
-            var width=document.documentElement.clientWidth;
-            uexBaiduMap.open(0,100,width,640,"116.309","39.977", function(){
+            var width = uexWindow.getWidth();
+            var height = uexWindow.getHeight();
+            uexBaiduMap.open(0,height * 0.2 | 0,width,height * 0.5 | 0,"116.309","39.977", function(){
                 UNIT_TEST.assert(true);
             });
         },
@@ -307,23 +308,23 @@ if (UNIT_TEST) {
                 UNIT_TEST.assertDelay(true);
             }
         },
-        "addTextOverlay":function () {
-            var data={
-                bgColor: "#FFFF00",
-                fontSize: "24",
-                id: "156",
-                longitude: "116.400244",
-                latitude: "39.963175",
-                rotate: "-30",
-                text: "baidu map"
-            };
-            var id=uexBaiduMap.addTextOverlay(data);
-            if(!id){
-                UNIT_TEST.assert(false);
-            }else {
-                UNIT_TEST.assertDelay(true);
-            }
-        },
+//        "addTextOverlay":function () {
+//            var data={
+//                bgColor: "#FFFF00",
+//                fontSize: "24",
+//                id: "156",
+//                longitude: "116.400244",
+//                latitude: "39.963175",
+//                rotate: "-30",
+//                text: "baidu map"
+//            };
+//            var id=uexBaiduMap.addTextOverlay(data);
+//            if(!id){
+//                UNIT_TEST.assert(false);
+//            }else {
+//                UNIT_TEST.assertDelay(true);
+//            }
+//        },
         "removeOverlay":function () {
             uexBaiduMap.removeOverlay("150");
             UNIT_TEST.assertDelay(true);
@@ -396,14 +397,14 @@ if (UNIT_TEST) {
                 }
             });
         },
-        "preBusLineNode":function () {
-            uexBaiduMap.preBusLineNode();
-            UNIT_TEST.assert(true);
-        },
-        "nextBusLineNode":function () {
-            uexBaiduMap.nextBusLineNode();
-            UNIT_TEST.assert(true);
-        },
+//        "preBusLineNode":function () {
+//            uexBaiduMap.preBusLineNode();
+//            UNIT_TEST.assert(true);
+//        },
+//        "nextBusLineNode":function () {
+//            uexBaiduMap.nextBusLineNode();
+//            UNIT_TEST.assert(true);
+//        },
         "removeBusLine":function () {
             uexBaiduMap.removeBusLine();
             UNIT_TEST.assert(true);
@@ -426,15 +427,15 @@ if (UNIT_TEST) {
             var id=uexBaiduMap.searchRoutePlan(data);
             UNIT_TEST.assertNotEqual(id,null);
         },
-        "preRouteNode":function () {
-            uexBaiduMap.preRouteNode();
-            UNIT_TEST.assert(true);
-        },
-
-        "nextRouteNode":function () {
-            uexBaiduMap.nextRouteNode();
-            UNIT_TEST.assert(true);
-        },
+//        "preRouteNode":function () {
+//            uexBaiduMap.preRouteNode();
+//            UNIT_TEST.assert(true);
+//        },
+//
+//        "nextRouteNode":function () {
+//            uexBaiduMap.nextRouteNode();
+//            UNIT_TEST.assert(true);
+//        },
         "removeRoutePlan":function () {
             uexBaiduMap.removeRoutePlan("rp345");
             UNIT_TEST.assert(true);
@@ -489,6 +490,17 @@ if (UNIT_TEST) {
             uexBaiduMap.stopLocation();
             UNIT_TEST.assert(true);
         },
+        "onReceiveLocation":function () {
+            var assert=false;
+            uexBaiduMap.onReceiveLocation=function (data) {
+                if (!assert){
+                    UNIT_TEST.log(data);
+                    assert=true;
+                    UNIT_TEST.assert(true);
+                    uexBaiduMap.stopLocation();    }
+            };
+            uexBaiduMap.startLocation();
+        },
         "setMyLocationEnable":function () {
             uexBaiduMap.setMyLocationEnable(1);
             UNIT_TEST.assertDelay(true);
@@ -497,10 +509,10 @@ if (UNIT_TEST) {
             uexBaiduMap.setUserTrackingMode(0);
             UNIT_TEST.assertDelay(true);
         },
-        "zoomControlsEnabled":function () {
-            uexBaiduMap.zoomControlsEnabled(0);
-            UNIT_TEST.assertDelay(true);
-        },
+//        "zoomControlsEnabled":function () {
+//            uexBaiduMap.zoomControlsEnabled(0);
+//            UNIT_TEST.assertDelay(true);
+//        },
         "getDistance":function () {
             var distance = uexBaiduMap.getDistance("40.056957","116.307827","40.05000","116.30999");
             UNIT_TEST.log(distance);
@@ -543,29 +555,19 @@ if (UNIT_TEST) {
             UNIT_TEST.log("请长按地图")
         },
 
-        "onMapStatusChangeListener":function () {
-            var assert=false;
-            uexBaiduMap.onMapStatusChangeListener=function (data) {
-                if (!assert){
-                    UNIT_TEST.log(data);
-                    assert=true;
-                    UNIT_TEST.assert(true);
-                }
-            };
-            UNIT_TEST.log("请拖动,缩放地图")
-        },
+//        "onMapStatusChangeListener":function () {
+//            var assert=false;
+//            uexBaiduMap.onMapStatusChangeListener=function (data) {
+//                if (!assert){
+//                    UNIT_TEST.log(data);
+//                    assert=true;
+//                    UNIT_TEST.assert(true);
+//                }
+//            };
+//            UNIT_TEST.log("请拖动,缩放地图")
+//        },
 
-        "onReceiveLocation":function () {
-            var assert=false;
-            uexBaiduMap.onReceiveLocation=function (data) {
-                if (!assert){
-                    UNIT_TEST.log(data);
-                    assert=true;
-                    UNIT_TEST.assert(true);
-                    uexBaiduMap.stopLocation();    }
-            };
-            uexBaiduMap.startLocation();
-        },
+
 
         "onSearchRoutePlan":function () {
             var assert=false;
