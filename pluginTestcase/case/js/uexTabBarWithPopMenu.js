@@ -7,27 +7,27 @@ if (UNIT_TEST) {
                 textSize: 10,
                 textNColor: "#ffffff",
                 textHColor: "#EE0000",
-                centerImg: "res://plus2.png",
+                centerImg: "res://tabbarwithpopmenu/plus2.png",
                 bgColor: "#32394A",
                 data: [{
                     title: "动态",
-                    iconN: "res://tab1.png",
-                    iconH: "res://tab1_1.png"
+                    iconN: "res://tabbarwithpopmenu/tab1.png",
+                    iconH: "res://tabbarwithpopmenu/tab1_1.png"
                 },
                 {
                     title: "与我相关",
-                    iconN: "res://tab2.png",
-                    iconH: "res://tab2_1.png"
+                    iconN: "res://tabbarwithpopmenu/tab2.png",
+                    iconH: "res://tabbarwithpopmenu/tab2_1.png"
                 },
                 {
                     title: "我的空间",
-                    iconN: "res://tab3.png",
-                    iconH: "res://tab3_1.png"
+                    iconN: "res://tabbarwithpopmenu/tab3.png",
+                    iconH: "res://tabbarwithpopmenu/tab3_1.png"
                 },
                 {
                     title: "玩吧",
-                    iconN: "res://tab4.png",
-                    iconH: "res://tab4_1.png"
+                    iconN: "res://tabbarwithpopmenu/tab4.png",
+                    iconH: "res://tabbarwithpopmenu/tab4_1.png"
                 }]
             },
             popMenu: {
@@ -38,80 +38,80 @@ if (UNIT_TEST) {
                 bottomDistance: 300,
                 data: [[{
                     title: "联系人",
-                    iconN: "res://pop1.png",
-                    iconH: "res://pop1_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop1.png",
+                    iconH: "res://tabbarwithpopmenu/pop1_1.png"
                 },
                 {
                     title: "保存",
-                    iconN: "res://pop2.png",
-                    iconH: "res://pop2_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop2.png",
+                    iconH: "res://tabbarwithpopmenu/pop2_1.png"
                 },
                 {
                     title: "拍照",
-                    iconN: "res://pop3.png",
-                    iconH: "res://pop3_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop3.png",
+                    iconH: "res://tabbarwithpopmenu/pop3_1.png"
                 },
                 {
                     title: "打印文件",
-                    iconN: "res://pop4.png",
-                    iconH: "res://pop4_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop4.png",
+                    iconH: "res://tabbarwithpopmenu/pop4_1.png"
                 },
                 {
                     title: "定位",
-                    iconN: "res://pop5.png",
-                    iconH: "res://pop5_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop5.png",
+                    iconH: "res://tabbarwithpopmenu/pop5_1.png"
                 }
 
                 ], [{
                     title: "联系人",
-                    iconN: "res://pop1.png",
-                    iconH: "res://pop1_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop1.png",
+                    iconH: "res://tabbarwithpopmenu/pop1_1.png"
                 },
                 {
                     title: "联系人",
-                    iconN: "res://pop1.png",
-                    iconH: "res://pop1_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop1.png",
+                    iconH: "res://tabbarwithpopmenu/pop1_1.png"
                 },
                 {
                     title: "联系人",
-                    iconN: "res://pop1.png",
-                    iconH: "res://pop1_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop1.png",
+                    iconH: "res://tabbarwithpopmenu/pop1_1.png"
                 },
                 {
                     title: "联系人",
-                    iconN: "res://pop1.png",
-                    iconH: "res://pop1_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop1.png",
+                    iconH: "res://tabbarwithpopmenu/pop1_1.png"
                 },
                 {
                     title: "定位",
-                    iconN: "res://pop5.png",
-                    iconH: "res://pop5_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop5.png",
+                    iconH: "res://tabbarwithpopmenu/pop5_1.png"
                 }
 
                 ], [{
                     title: "联系人",
-                    iconN: "res://pop1.png",
-                    iconH: "res://pop1_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop1.png",
+                    iconH: "res://tabbarwithpopmenu/pop1_1.png"
                 },
                 {
                     title: "保存",
-                    iconN: "res://pop2.png",
-                    iconH: "res://pop2_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop2.png",
+                    iconH: "res://tabbarwithpopmenu/pop2_1.png"
                 },
                 {
                     title: "拍照",
-                    iconN: "res://pop3.png",
-                    iconH: "res://pop3_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop3.png",
+                    iconH: "res://tabbarwithpopmenu/pop3_1.png"
                 },
                 {
                     title: "打印文件",
-                    iconN: "res://pop4.png",
-                    iconH: "res://pop4_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop4.png",
+                    iconH: "res://tabbarwithpopmenu/pop4_1.png"
                 },
                 {
                     title: "定位",
-                    iconN: "res://pop5.png",
-                    iconH: "res://pop5_1.png"
+                    iconN: "res://tabbarwithpopmenu/pop5.png",
+                    iconH: "res://tabbarwithpopmenu/pop5_1.png"
                 }
 
                 ]]
