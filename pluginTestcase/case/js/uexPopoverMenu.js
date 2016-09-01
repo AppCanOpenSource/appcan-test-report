@@ -30,9 +30,12 @@ define(["CC"], function(CC) {
                 "text": 'Feedback'
             }]
         };
-        uexPopoverMenu.openPopoverMenu(JSON.stringify(params), function(index) {
-            CC.confirm("请确认你点击的是否是第" + (index + 1) + "项",
-            function(ret) {
+        uexPopoverMenu.openPopoverMenu(JSON.stringify(params), function(error, index) {
+            if(error) {
+                UNIT_TEST.assert(false);
+                return;
+            }
+            CC.confirm("请确认你点击的是否是第" + (index + 1) + "项", function(ret) {
                 UNIT_TEST.assert(ret);
             });
         });
