@@ -13,7 +13,7 @@ if (UNIT_TEST) {
             function callback(error, data){
                 if(!error){
                     UNIT_TEST.log("设置成功");
-                    UNIT_TEST.assert(true);
+                    UNIT_TEST.assertDelay(true);
                 }else{
                     UNIT_TEST.log("设置失败!2秒后重新设置");
                     setTimeout(function(){
