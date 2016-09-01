@@ -30,23 +30,18 @@ define(["CC"], function(CC) {
                 "text": 'Feedback'
             }]
         };
-        uexPopoverMenu.openPopoverMenu(JSON.stringify(params), function(error, index) {
-            if(error) {
-                UNIT_TEST.assert(false);
-                return;
-            }
+        uexPopoverMenu.openPopoverMenu(JSON.stringify(params));
+        CC.confirm("检测UI是否正确", function(ret) {
+            UNIT_TEST.assert(ret);
+        });
+    }
+    uexPopoverMenuCase.onItemClicked = function() {
+        UNIT_TEST.log("请点击某一项......");
+        uexPopoverMenu.onItemClicked = function(index) {
             CC.confirm("请确认你点击的是否是第" + (index + 1) + "项", function(ret) {
                 UNIT_TEST.assert(ret);
             });
-        });
-        CC.confirm("检测UI是否正确", function(ret) {
-            //UNIT_TEST.assert(ret);
-            if (ret) {
-                UNIT_TEST.log("请点击某一项......");
-            }
-
-        });
+        }
     }
-
     UNIT_TEST.addCase("uexPopoverMenu", uexPopoverMenuCase);
 });
