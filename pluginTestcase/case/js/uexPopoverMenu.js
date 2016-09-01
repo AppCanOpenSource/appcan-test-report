@@ -14,19 +14,19 @@ define(["CC"], function(CC) {
             "textColor": '#FFFFFF',
             "textSize": window.screen.width * 0.042,
             "data": [{
-                "icon": 'res://groupchat.png',
+                "icon": 'res://popovermenu/groupchat.png',
                 "text": 'Group Chat'
             },
             {
-                "icon": 'res://addcontacts.png',
+                "icon": 'res://popovermenu/addcontacts.png',
                 "text": 'Add Contacts'
             },
             {
-                "icon": 'res://scanqrcode.png',
+                "icon": 'res://popovermenu/scanqrcode.png',
                 "text": 'Scan QR code'
             },
             {
-                "icon": 'res://feedback.png',
+                "icon": 'res://popovermenu/feedback.png',
                 "text": 'Feedback'
             }]
         };
