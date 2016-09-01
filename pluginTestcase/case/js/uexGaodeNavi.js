@@ -23,8 +23,8 @@ define(["CC","Rx"],function(CC,Rx){
         startPoint:[39.925846, 116.432765],
         endPoint:[39.925041, 116.437901]
       };
-      uexGaodeNavi.calculateWalkRoute(JSON.stringify(params),function(info){
-        if (info && info.result) {
+      uexGaodeNavi.calculateWalkRoute(JSON.stringify(params),function(err){
+        if (err ===  0) {
           observer.onCompleted();
         }else{
           observer.onError(new Error("步行路径规划失败!"));
@@ -38,8 +38,8 @@ define(["CC","Rx"],function(CC,Rx){
         startPoint:[39.925846, 116.432765],
         endPoint:[39.925041, 116.437901]
       };
-      uexGaodeNavi.calculateDriveRoute(JSON.stringify(params),function(info){
-        if (info && info.result) {
+      uexGaodeNavi.calculateDriveRoute(JSON.stringify(params),function(err){
+        if (err ===  0) {
           observer.onCompleted();
         }else{
           observer.onError(new Error("驾车路径规划失败!"));
@@ -67,8 +67,6 @@ define(["CC","Rx"],function(CC,Rx){
         var parseNaviText = function (info){
           var data = JSON.parse(info);
           switch(data.type){
-            case 1:
-              return "导航播报 ~> " + data.text;
             case 2:
               return "前方路况 ~> " + data.text;
             case 4:
@@ -76,9 +74,8 @@ define(["CC","Rx"],function(CC,Rx){
             case 8:
               return "通过提示 ~> " + data.text;
             default:
-              break;
+              return "导航播报 ~> " + data.text;
           }
-          return "导航信息解析错误!";
         }
         uexGaodeNavi.onGetNavigationText = function(info){
           CC.log(parseNaviText(info));
@@ -106,9 +103,9 @@ define(["CC","Rx"],function(CC,Rx){
 
   TEST_CASE.init = function(){
 
-    uexGaodeNavi.init(null,function (info){
-      var ret = info ? info.result : false ;
-      CC.log("高德导航初始化结果: " + ret);
+    uexGaodeNavi.init(null,function (err){
+      var ret = (err === 0) ;
+      CC.log("高德导航初始化结果: " + ret ? "成功" : "失败");
       UNIT_TEST.assertTrue(ret);
     });
   };
