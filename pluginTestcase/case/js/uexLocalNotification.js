@@ -22,7 +22,7 @@ define(["CC","RootObserver"],function(CC,RootObserver){
 
   TEST_CASE.add1 = function(){
     const id = "alarm_1";
-    const msg = CC.randomString(20);
+    const msg = "alarm_1";
     var observer = new RootObserver("uexLocalNotification.onMessage");
     observer.once(function(notificationID,message,extraJSON){
       var extras = JSON.parse(extraJSON);
@@ -35,7 +35,7 @@ define(["CC","RootObserver"],function(CC,RootObserver){
   };
   TEST_CASE.add2 = function(){
     const id = "alarm_2";
-    const msg = CC.randomString(20);
+    const msg = "alarm_2";
     var observer = new RootObserver("uexLocalNotification.onActive");
     observer.once(function(notificationID,message,extraJSON){
       var extras = JSON.parse(extraJSON);
@@ -50,7 +50,7 @@ define(["CC","RootObserver"],function(CC,RootObserver){
   TEST_CASE.remove = function(){
     CC.log("请保证应用在前台!");
     const id = "alarm_3";
-    const msg = CC.randomString(20);
+    const msg = "alarm_3";
     var observer = new RootObserver("uexLocalNotification.onMessage");
     observer.once(function(notificationID,message,extraJSON){
       UNIT_TEST.assert(false);
@@ -71,7 +71,7 @@ define(["CC","RootObserver"],function(CC,RootObserver){
     observer.once(function(notificationID,message,extraJSON){
       UNIT_TEST.assert(false);
     });
-    const msg = CC.randomString(20);
+    const msg = "alarm_4_5_6";
     CC.log("注册多个通知");
 
     uexLocalNotification.add("alarm_4",getTime(1.5),mode,msg,buttonTitle,ringPath,cycle,notifyCount,JSON.stringify(extras));
