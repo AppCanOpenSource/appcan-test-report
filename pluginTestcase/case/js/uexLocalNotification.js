@@ -43,7 +43,7 @@ define(["CC","RootObserver"],function(CC,RootObserver){
       UNIT_TEST.assert(notificationID == id && message == msg && extras && extras.name == "Tony" && extras.sex == "male" && extras.age == 34);
     });
     CC.alert("点击OK 3秒后触发通知,请在3秒内切换应用至后台,并点击触发的通知切回应用.",function(){
-      uexLocalNotification.add(id,getTime(2),mode,msg,buttonTitle,ringPath,cycle,notifyCount,JSON.stringify(extras));
+      uexLocalNotification.add(id,getTime(3),mode,msg,buttonTitle,ringPath,cycle,notifyCount,JSON.stringify(extras));
     });
   };
 
