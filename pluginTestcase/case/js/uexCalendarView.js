@@ -20,7 +20,7 @@ if (UNIT_TEST) {
             }
             };
             uexCalendarView.setSelectedDate(data);
-            UNIT_TEST.assertDelay(true);
+            UNIT_TEST.assert(true);
         },
         "onItemClick ":function(){
             UNIT_TEST.log("请点击，触发onItemClick回调事件！");
