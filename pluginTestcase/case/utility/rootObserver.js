@@ -41,8 +41,26 @@ define(["Rx"],function (Rx) {
   uexWindow.subscribeChannelNotification(CHANNEL,"_rootObserverSubject");
   uexWindow._rootObserverSubject = function(info){
     baseSubject.onNext(JSON.parse(info));
-  }
+  };
+  //解决Android不能传递JSONString的问题
+  var argJS = 
+    "var ARG = function(argument){"           +
+      "this.arg = argument;"                  +
+      "this.isJSONString = false;"            +
+      "try{"                                  +
+        "var json = JSON.parse(argument);"    +
+        "if(json){"                           +
+          "this.arg = json;"                  +
+          "this.isJSONString = true;"         +
+        "}"                                   +
+      "}catch(e){}"                           +
+    "};"                                      
 
+  uexWindow.evaluateScript({
+    name: "root",
+    type: 0,
+    js: argJS
+  });
   var Observer = function(cbName){
     this.cbName = cbName;
     this.subscription = null;
@@ -72,7 +90,12 @@ define(["Rx"],function (Rx) {
     };
     observer.subscription = signal.subscribe(
       function(data){
-        func.apply(null,data.args);
+        var args = [];
+        for (var i = 0; i < data.args.length; i++) {
+          var argObj = data.args[i];
+          args.push(argObj.isJSONString ? JSON.stringify(argObj.arg) : argObj.arg);
+        };
+        func.apply(null,args);
       },
       function(){observer.dispose();},
       function(){observer.dispose();}
@@ -92,7 +115,11 @@ define(["Rx"],function (Rx) {
   };
   var rootJS = function(cbName){
     var js = cbName + " = function(){"                                      +
-      "var args = Array.prototype.slice.call(arguments);"                   + 
+      "var args = [];"                                                      + 
+      "for(var i = 0;i < arguments.length;i++){"                            +
+        "var arg = new ARG(arguments[i]);"                                  +
+        "args.push(arg);"                                                   +
+      "}"                                                                   +
       "var data = JSON.stringify({"                                         +
           "args: args,"                                                     +
           "cbName: '" + cbName + "'"                                        +
