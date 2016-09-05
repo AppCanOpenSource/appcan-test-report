@@ -7,7 +7,7 @@ if (UNIT_TEST) {
                secret:"1c22d036487da0bd69c791788e5870e6"
            }
            uexUnisound.init(JSON.stringify(data));
-           UNIT_TEST.assert(true);
+           UNIT_TEST.assertDelay(true);
 
         },
         "updateRecognizerSettings": function(){
@@ -19,44 +19,26 @@ if (UNIT_TEST) {
                engine:1
            }
            uexUnisound.updateRecognizerSettings(JSON.stringify(data));
-           UNIT_TEST.assert(true);
+           UNIT_TEST.assertDelay(true);
         },
-
-        "runTextUnderstand": function(){
-            var data = {
-                test:"我爱你"
-            }
-            uexUnisound.runTextUnderstand(JSON.stringify(data));
-            UNIT_TEST.assert(true);
-        },
-
-        "onReceiveUnderstanderResult": function(){
-            var isExecuted = false;
-            if (!isExecuted) {
-                uexUnisound.onReceiveUnderstanderResult = function (info) {
-
-                    UNIT_TEST.log("[data]" + info);
-                    UNIT_TEST.assert(true);
-                    isExecuted = true;
-                }
+        "runTextUnderstand && onReceiveUnderstanderResult": function(){
+            uexUnisound.onReceiveUnderstanderResult = function (info) {
+                uexUnisound.onReceiveUnderstanderResult = null;
+                UNIT_TEST.log("[data]" + info);
+                UNIT_TEST.assertDelay(true);
             };
-            uexUnisound.runTextUnderstand('{"text":"我爱你"}');
+            uexUnisound.runTextUnderstand(JSON.stringify({text:"我爱你"}));
 
         },
-        "start": function(){
-           uexUnisound.start();
-           UNIT_TEST.assert(true);
-        },
-        "onVADTimeout": function() {
+
+        "start & onVADTimeout": function() {
             UNIT_TEST.log("测试录音超时");
-            var isExecuted = false;
             uexUnisound.onVADTimeout = function(info){
-                if (!isExecuted) {
-                    UNIT_TEST.assert(true);
-                    isExecuted = true;
-                }
+                uexUnisound.onVADTimeout = null;
                 uexUnisound.stop();
+                UNIT_TEST.assertDelay(true);
             }
+            uexUnisound.start();
         },
         "onRecognizerStart": function() {
              if (uexWidgetOne.platformName.indexOf('android') > -1) {
@@ -65,37 +47,37 @@ if (UNIT_TEST) {
              } else {
                 uexUnisound.start();
                 uexUnisound.onRecognizerStart = function(){
+                    uexUnisound.onRecognizerStart = null;
                     UNIT_TEST.log("语音识别开始");
-                    UNIT_TEST.assert(true);
+                    uexUnisound.stop();
+                    UNIT_TEST.assertDelay(true);
                 }
 
              }
         },
         "onUpdateVolume": function() {
             uexUnisound.start();
-            var isExecuted = false;
+
             uexUnisound.onUpdateVolume = function(info){
+                uexUnisound.onUpdateVolume = null;
+                uexUnisound.stop();
                 var data = JSON.parse(info);
-                if (!isExecuted) {
-                    UNIT_TEST.log("volume:" + data.volume);
-                    UNIT_TEST.assert(true);
-                    isExecuted = true;
-                }
+                UNIT_TEST.log("volume:" + data.volume);
+                UNIT_TEST.assertDelay(true);
+
+ 
             }
         },
-
-        "stop": function(){
-            uexUnisound.stop();
-            UNIT_TEST.assert(true);
-        },
-        "onEnd": function() {
+        "stop && onEnd": function() {
             uexUnisound.start();
             uexUnisound.stop();
             uexUnisound.onEnd = function() {
+                uexUnisound.onEnd = null;
                 UNIT_TEST.assert(true);
             }
         },
         "cancel": function(){
+            uexUnisound.start();
             uexUnisound.cancel();
             UNIT_TEST.assert(true);
         },
@@ -113,11 +95,13 @@ if (UNIT_TEST) {
             };
             uexUnisound.speaking(JSON.stringify(data));
             uexUnisound.onSpeakingStart = function(){
+                uexUnisound.onSpeakingStart = null;
                 UNIT_TEST.assert(true);
             }
         },
         "onSpeakingFinish": function() {
             uexUnisound.onSpeakingFinish = function(){
+                uexUnisound.onSpeakingFinish = null;
                 UNIT_TEST.assert(true);
             }
         },
@@ -128,30 +112,31 @@ if (UNIT_TEST) {
             uexUnisound.speaking(JSON.stringify(data));
             setTimeout(function() {
                 uexUnisound.cancelSpeaking();
-                UNIT_TEST.assert(true);
+                UNIT_TEST.assertDelay(true);
             }, 2000);
         },
         "onSpeakingCancel": function() {
             var data = {
                 text:"你好"
             };
-            uexUnisound.speaking(JSON.stringify(data));
-            uexUnisound.cancelSpeaking();
             uexUnisound.onSpeakingCancel = function(){
-                UNIT_TEST.assert(true);
+                uexUnisound.onSpeakingCancel = null;
+                UNIT_TEST.assertDelay(true);
             }
+            uexUnisound.speaking(JSON.stringify(data));
+            setTimeout(function(){
+                       uexUnisound.cancelSpeaking();
+                       },500);
+            
         },
        "onReceiveRecognizerResult": function() {
             UNIT_TEST.log("开始识别，请说话....");
-            uexUnisound.start();
-            var isExecuted = false;
-            if (!isExecuted) {
-                uexUnisound.onReceiveRecognizerResult = function(info) {
-                    UNIT_TEST.log("[data]" + info);
-                    UNIT_TEST.assert(true);
-                    isExecuted = true;
-                }
+            uexUnisound.onReceiveRecognizerResult = function(info) {
+                uexUnisound.onReceiveRecognizerResult = null;
+                UNIT_TEST.log("[data]" + info);
+                UNIT_TEST.assert(true);
             }
+            uexUnisound.start();
         },
 
 //        "onSpeakingErrorOccur": function() {
