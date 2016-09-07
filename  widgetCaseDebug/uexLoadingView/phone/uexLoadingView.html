@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<style>
+		input{
+			color: black;
+			padding: 1px 6px;
+			margin-left:6px;
+		}
+		input[type="text"]{
+			padding: .2em .4em;
+			margin:.4em .6em;
+			font-size:1em;
+		}
+		input[type="button"]{
+			padding: .6em .8em;
+			margin:.4em .6em;
+			font-size:1.2em;
+		}
+	</style>
+    <script src="js/zy_control.js">
+    </script>
+    <script src="js/zy_click.js">
+    </script>
+    <script type="text/javascript">
+	 	window.uexOnload = function() {
+	 		uexWidgetOne.cbError = function(opid,type,data){
+	 			alert(data);
+	 		}
+	 	}
+
+		function openLoadingView(){
+		    //var jsonstr = '{"x":200, "y":500, "w":240, "h":40, "style":{"styleId":0, "pointNum":4, "pointColor":["#ff4444", "#ffbb33", "#99cc00", "#33b5e5"]}}';
+		    // var jsonstr = '{"x":200, "y":500, "w":150, "h":40, "style":{"styleId":1, "pointNum":4, "pointColor":["#ffffff"]}}';
+    		// uexLoadingView.open(jsonstr);
+    		if(uexWidgetOne.platformName == "iOS"){
+    		    //宽高是计算得来的，iOS点的直径为20，间隔为5
+                var x=screen.availWidth/2-47.5;
+                var y=screen.availHeight/2-10;
+                var w=95;
+                var h=20;
+            }else{    
+                //宽高是计算得来的，Android点的直径为40，每个点左右间隔为6，共8个           
+                var x=screen.availWidth/2-104;
+                var y=screen.availHeight/2-20;
+                var w=208;
+                var h=40;
+            }
+    		var params = {
+                "x":x,
+                "y":y,
+                "w":w,
+                "h":h,
+                "style":
+                {
+                    "styleId":0,
+                    "pointNum":4,
+                    "pointColor":["#ff4444", "#ffbb33", "#99cc00", "#33b5e5"]
+                }
+            };
+            uexLoadingView.open(JSON.stringify(params));
+		}
+		function openCircleLoading(){
+            uexLoadingView.openCircleLoading();	
+            setTimeout (function(){
+                closeLoadingView();
+            },3000);	    
+		}
+		
+		function closeLoadingView(){
+    		uexLoadingView.close();
+		}
+	</script>
+</head>
+<body class="um-vp " ontouchstart>
+	<div id="page_0" class="up ub ub-ver" tabindex="0">
+	    <!--header开始-->
+	    <div id="header" class="uh t-wh ub" style="background: #27A73F;">
+	        <h1 class="ut ub-f1 ulev0 ut-s tx-c" tabindex="0">LoadingView</h1>
+	    </div>
+	    <!--header结束--><!--content开始-->
+	    <div id="content" class="ub-f1 tx-l t-bla" style="">
+	    <div class="conbor">
+			<div class="consj">
+				<input type="button" value="打开" onclick="openLoadingView();">
+				<input type="button" value="打开圆形加载动画" onclick="openCircleLoading();">
+				<input type="button" value="关闭" onclick="closeLoadingView();">
+	        </div>
+	    </div>
+	</div>
+</body>
+<script>
+
+</script>
+</html>
