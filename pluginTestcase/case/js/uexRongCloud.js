@@ -41,7 +41,7 @@ if (UNIT_TEST) {
                 extra: "extra info ...", //消息的附加字段
                 //objectName 为"RC:TxtMsg"时(文字消息)
                 text: "text content ..." //消息的文字内容
-            }, function (error, messageId, progress) {
+            }, function (error, messageId) {
                 if (error == 0) {
                     UNIT_TEST.log("准备发送:" + messageId)
                 } else if (error == 1) {
@@ -63,7 +63,7 @@ if (UNIT_TEST) {
                 extra: "extra info ...", //消息的附加字段
                 voicePath: 'res://voice.mp3', //语音文件的路径
                 duration: 30, //Number类型 语音消息的时长，单位为秒
-            }, function (error, messageId, progress) {
+            }, function (error, messageId) {
                 if (error == 0) {
                     UNIT_TEST.log("准备发送:" + messageId)
                 } else if (error == 1) {
@@ -85,7 +85,7 @@ if (UNIT_TEST) {
                 extra: "extra info ...", //消息的附加字段
                 imgPath: 'res://image.jpg', //图片的本地路径
                 thumbPath: 'res://icon.png' //缩略图
-            }, function (error, messageId, progress) {
+            }, function (error, messageId) {
                 if (error == 0) {
                     UNIT_TEST.log("准备发送:" + messageId)
                 } else if (error == 1) {
@@ -110,7 +110,7 @@ if (UNIT_TEST) {
                 description: '消息的内容描述', //消息的内容描述
                 // imgPath: 'http://img1.3lian.com/2015/w7/90/d/1.jpg', //发送图片的网络路径
                 url: 'http://www.baidu.com' //图文消息中包含的需要跳转到的URL
-            }, function (error, messageId, progress) {
+            }, function (error, messageId) {
                 if (error == 0) {
                     UNIT_TEST.log("准备发送:" + messageId);
                 } else if (error == 1) {
@@ -135,7 +135,7 @@ if (UNIT_TEST) {
                 longitude: '116.3974799', //经度
                 poi: '北京天安门', //地理位置的名称
                 imgPath: 'res://image.jpg' //地图略缩图的路径
-            }, function (error, messageId, progress) {
+            }, function (error, messageId) {
                 if (error == 0) {
                     UNIT_TEST.log("准备发送:" + messageId);
                 } else if (error == 1) {
@@ -157,7 +157,7 @@ if (UNIT_TEST) {
                 extra: "extra info ...", //消息的附加字段
                 name: 'action_name', //命令的名称
                 data: 'action_data .....' //命令的数据
-            }, function (error, messageId, progress) {
+            }, function (error, messageId) {
                 if (error == 0) {
                     UNIT_TEST.log("准备发送:" + messageId);
                 } else if (error == 1) {
@@ -304,12 +304,18 @@ if (UNIT_TEST) {
             UNIT_TEST.assert(true);
         },
         "clearMessagesUnreadStatus": function () {
-            var params = {
-                conversationType: "PRIVATE",
-                targetId: globalTargetId
-            };
-            uexRongCloud.clearMessagesUnreadStatus(params);
-            UNIT_TEST.assert(true);
+             if (uexWidgetOne.platformName.indexOf('android') > -1) {
+                 var params = {
+                 conversationType: "PRIVATE",
+                 targetId: globalTargetId
+                 };
+                 uexRongCloud.clearMessagesUnreadStatus(params);
+                 UNIT_TEST.assert(true);
+             }else{//iOS不支持
+                 UNIT_TEST.log("iOS not support, let it go");
+                 UNIT_TEST.assert(true);
+             }
+            
         },
         "disconnect": function () {
             uexRongCloud.disconnect({
