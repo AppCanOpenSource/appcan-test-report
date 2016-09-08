@@ -44,17 +44,19 @@
 		    // var jsonstr = '{"x":200, "y":500, "w":150, "h":40, "style":{"styleId":1, "pointNum":4, "pointColor":["#ffffff"]}}';
     		// uexLoadingView.open(jsonstr);
     		if(uexWidgetOne.platformName == "iOS"){
-    		    //宽高是计算得来的，iOS点的直径为20，间隔为5
+    		    //宽高是计算得来的，iOS点的直径为20，共4个；间隔为5，共3个（直径、间隔固定不变）
                 var x=screen.availWidth/2-47.5;
                 var y=screen.availHeight/2-10;
                 var w=95;
                 var h=20;
             }else{    
-                //宽高是计算得来的，Android点的直径为40，每个点左右间隔为6，共8个           
-                var x=screen.availWidth/2-104;
-                var y=screen.availHeight/2-20;
-                var w=208;
-                var h=40;
+                //宽高是计算得来的，Android点的单位分辨率直径为20，共4个；每个点左右间隔为3，共8个       
+                var dot=window.devicePixelRatio;   
+                // alert(dot);
+                var w=(20*4+3*8)*dot;
+                var h=20*dot; 
+                var x=screen.availWidth/2-w/2;
+                var y=screen.availHeight/2-h/2;
             }
     		var params = {
                 "x":x,
