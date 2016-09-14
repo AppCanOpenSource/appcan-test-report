@@ -50,7 +50,7 @@ define(["CC"],function(CC){
       var data = JSON.parse(info);
       var index = data.index;
       var keyword = data.keyword;
-      if (!keyword || !index) {
+      if (!keyword || (!index && index !== 0)) {
         CC.log("uexSearchBarView.onItemClick回调结果解析失败!");
         UNIT_TEST.assert(false);
       };
