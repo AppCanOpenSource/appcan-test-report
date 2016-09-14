@@ -2,7 +2,7 @@ var btn = 0;
 if (UNIT_TEST) {
     var uexSlidePagerCase = {
         "openSlidePager":function(){
-                var topMargin = 1000;
+                var topMargin = screen.height/2;
                 var contentArray = [
                     "res://slidepager/pages/page1.html",
                     "res://slidepager/pages/page2.html",
