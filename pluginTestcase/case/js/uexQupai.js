@@ -31,7 +31,7 @@ define(["CC"], function(CC) {
     uexQupaiCase.record = function() {
         uexQupai.record(function(error, data) {
             if (!error) {
-                UNIT_TEST.log(true);
+                UNIT_TEST.assert(true);
                 UNIT_TEST.log("[data]:" + JSON.stringify(data));
             } else {
                 UNIT_TEST.assert(false);
