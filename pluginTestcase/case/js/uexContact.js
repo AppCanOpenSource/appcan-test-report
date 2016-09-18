@@ -108,9 +108,10 @@ if (UNIT_TEST) {
             });
         },
         "modifyWithId":function () {
+            contactName = 'Appcan';
             var option = {
                 contactId:contactId,
-                name:'Appcan',
+                name:contactName,
                 num:'15888888888',
                 email:'widgeton@zymobi.com'
             };
