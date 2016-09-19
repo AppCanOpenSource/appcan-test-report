@@ -1,21 +1,20 @@
 if (UNIT_TEST) {
     var isOnDownloadExecute = false;
     var isMapLoaded = false;
+    var isDownloaded = false;
+    var cityName = null;
     uexGaodeMap.onMapLoadedListener = function() {
         isMapLoaded = true;
     }
     var uexGaodeMapCase = {
         "open": function(){
-            for (var i = 1; i < 15; i ++) {
-                    UNIT_TEST.log("    ");
-            }
              var width=document.documentElement.clientWidth;
              var params = {
                  left:0,
-                 top:20,
+                 top:50,
                  width:width,
-                 height:400,
-                 isScrollWithWeb:true,
+                 height:600,
+                 isScrollWithWeb:false,
                  longitude:114.402815,
                  latitude:30.475798
              };
@@ -558,13 +557,14 @@ if (UNIT_TEST) {
         },
 
         "getAvailableCityList": function(){
+            uexGaodeMap.delete();
             uexGaodeMap.getAvailableCityList(function(error, data){
                 if(!error) {
+                    cityName = data[0].city;
                     UNIT_TEST.assert(true);
                 } else {
                     UNIT_TEST.assert(false);
                 }
-                //UNIT_TEST.log("[getAvailableCityList data]" + JSON.stringify(data));
             });
         },
         "getAvailableProvinceList": function(){
@@ -577,6 +577,68 @@ if (UNIT_TEST) {
                 //UNIT_TEST.log("[getAvailableProvinceList data]" + JSON.stringify(data));
             });
         },
+
+        "download": function(){
+            var params = [
+              {
+                  city:cityName
+              }
+            ];
+            var json = JSON.stringify(params);
+             uexGaodeMap.onDownload = function(info) {
+                var data = JSON.parse(info);
+                if(data.status == 0){
+                    UNIT_TEST.log("[onDownload status]正在下载...");
+                }
+                if(data.status == 1){
+                    UNIT_TEST.log("[onDownload status]正在解压...");
+                }
+                if(data.status == 4){
+                    isDownloaded = true;
+                    UNIT_TEST.log("[onDownload status]离线地图下载成功...");
+                    UNIT_TEST.assert(true);
+                }
+                if(data.status == 3){
+                    UNIT_TEST.log("[onDownload status]暂停下载...");
+                }
+                if(data.status == -1){
+                    isDownloaded = false;
+                    UNIT_TEST.log(data.name + " 下载失败!");
+                    UNIT_TEST.assert(false);
+                }
+            }
+            uexGaodeMap.download(json,downloadCallback);
+            function downloadCallback(error, data){
+                    if (!error) {
+                        UNIT_TEST.log("添加成功，请等待下载结果......");
+                    } else {
+                        UNIT_TEST.assert(false);
+                    }
+            };
+
+        },
+        "getDownloadingList": function(){
+            uexGaodeMap.getDownloadingList(function(error, data){
+                UNIT_TEST.log("[getDownloadingList data]" + data.length);
+                if(!error) {
+                    UNIT_TEST.assert(true);
+                } else {
+                    UNIT_TEST.assert(false);
+                }
+            });
+        },
+        /*"pause": function(){
+            var params = [cityName];
+            var data = JSON.stringify(params);
+            uexGaodeMap.pause(data);
+            UNIT_TEST.assert(true);
+        },
+        "restart": function(){
+            var params = [cityName];
+            var data = JSON.stringify(params);
+            uexGaodeMap.restart(data);
+            UNIT_TEST.assert(true);
+        },*/
         "getDownloadList": function(){
             uexGaodeMap.getDownloadList(function(error, data){
                 if(!error) {
@@ -584,11 +646,33 @@ if (UNIT_TEST) {
                 } else {
                     UNIT_TEST.assert(false);
                 }
-                UNIT_TEST.log("[getDownloadList data]" + JSON.stringify(data));
+                UNIT_TEST.log("[getDownloadList data]" + data.length);
             });
         },
+
+        "isUpdate": function(){
+            var params = {
+                    city:cityName  //该市需要是地图已经下载过的，在本地有的
+            };
+            var json = JSON.stringify(params);
+            if(isDownloaded){
+                uexGaodeMap.isUpdate(json,function(error, data){
+                    UNIT_TEST.log("[isUpdate data]" + JSON.stringify(data));
+                    if(!error) {
+                        UNIT_TEST.assert(true);
+                    } else {
+                        UNIT_TEST.assert(false);
+                    }
+                });
+            }else{
+               UNIT_TEST.log("该市地图未下载过，没有更新信息");
+               UNIT_TEST.assert(false);
+            }
+
+        },
+
          "delete": function(){
-            var params = ["武汉", "广东省"];
+            var params = [cityName];
             var json = JSON.stringify(params);
             var isDeleteExecute = false;
             if (uexWidgetOne.platformName.indexOf('android') > -1) {
@@ -608,105 +692,12 @@ if (UNIT_TEST) {
                         }
                     }
 
-
                 });
             } else {
                 uexGaodeMap.delete(json);
                 UNIT_TEST.assert(true);
             }
-        },
-
-        "getDownloadingList": function(){
-            uexGaodeMap.getDownloadingList(function(error, data){
-                UNIT_TEST.log("[getDownloadingList data]" + JSON.stringify(data));
-                if(!error) {
-                    UNIT_TEST.assert(true);
-                } else {
-                    UNIT_TEST.assert(false);
-                }
-            });
-        },
-
-        "download": function(){
-            var params = [
-              {
-                  city:'武汉'
-              }
-
-            ];
-            var json = JSON.stringify(params);
-            var isDownloadExecute = false;
-            uexGaodeMap.download(json,function(error, data){
-                UNIT_TEST.log("[download]error:" + error + "  data:"  + JSON.stringify(data));
-                if (!isDownloadExecute) {
-                    if (!error) {
-                        UNIT_TEST.assert(true);
-                    } else {
-                        UNIT_TEST.assert(false);
-                    }
-                    isDownloadExecute = true;
-                }
-
-            });
-        },
-
-        "pause": function(){
-            var params = ["武汉"];
-            var data = JSON.stringify(params);
-            uexGaodeMap.pause(data);
-            UNIT_TEST.assert(true);
-        },
-        "restart": function(){
-            var params = ["武汉"];
-            var data = JSON.stringify(params);
-            uexGaodeMap.restart(data);
-            UNIT_TEST.assert(true);
-        },
-        "isUpdate": function(){
-            var params = {
-                    city:'武汉'  //该市需要是地图已经下载过的，在本地有的
-                };
-            var json = JSON.stringify(params);
-            uexGaodeMap.isUpdate(json,function(error, data){
-                UNIT_TEST.log("[isUpdate data]" + JSON.stringify(data));
-                if(!error) {
-                    UNIT_TEST.assert(true);
-                } else {
-                    UNIT_TEST.assert(false);
-                }
-            });
-        },
-        "onDownload": function(){
-             uexGaodeMap.onDownload = function(info) {
-                if (isOnDownloadExecute) {
-                    return;
-                }
-                UNIT_TEST.log("[onDownload data]" + info);
-                isOnDownloadExecute = true;
-                var data = JSON.parse(info);
-                if(data.status == 0){
-                    UNIT_TEST.log("[onDownload status]正在下载...");
-                }
-                if(data.status == 1){
-                    UNIT_TEST.log("[onDownload status]正在解压...");
-
-                }
-                if(data.status == 4){
-                    UNIT_TEST.log("[onDownload status]离线地图下载成功...");
-
-                }
-                if(data.status == 3){
-                    UNIT_TEST.log("[onDownload status]暂停下载...");
-
-                }
-                if(data.status == -1){
-                    UNIT_TEST.log(data.name + " 下载失败!");
-                }
-                UNIT_TEST.assert(true);
-            }
-        },
-
-
+        }
         /*
         "onReceiveLocation": function(){  //位置变化时才会被调用
             uexGaodeMap.onReceiveLocation = function(data) {
