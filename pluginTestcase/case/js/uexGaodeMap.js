@@ -3,9 +3,6 @@ if (UNIT_TEST) {
     var isMapLoaded = false;
     var isDownloaded = false;
     var cityName = null;
-    uexGaodeMap.onMapLoadedListener = function() {
-        isMapLoaded = true;
-    }
     var uexGaodeMapCase = {
         "open": function(){
              var width=document.documentElement.clientWidth;
@@ -14,7 +11,7 @@ if (UNIT_TEST) {
                  top:50,
                  width:width,
                  height:600,
-                 isScrollWithWeb:false,
+                 isScrollWithWeb:true,
                  longitude:114.402815,
                  latitude:30.475798
              };
@@ -22,15 +19,7 @@ if (UNIT_TEST) {
              uexGaodeMap.open(json);
              UNIT_TEST.assertDelay(true, 3000);
         },
-        "onMapLoadedListener": function() {
-            if (isMapLoaded) {
-                UNIT_TEST.log("[test  onMapLoadedListener]: success");
-                UNIT_TEST.assert(true);
-            } else {
-                UNIT_TEST.assert(false);
-            }
-        },
-
+        
         "setMapType ": function(){
              var params = {
                  type:1
@@ -578,46 +567,7 @@ if (UNIT_TEST) {
             });
         },
 
-        "download": function(){
-            var params = [
-              {
-                  city:cityName
-              }
-            ];
-            var json = JSON.stringify(params);
-             uexGaodeMap.onDownload = function(info) {
-                var data = JSON.parse(info);
-                if(data.status == 0){
-                    UNIT_TEST.log("[onDownload status]正在下载...");
-                }
-                if(data.status == 1){
-                    UNIT_TEST.log("[onDownload status]正在解压...");
-                }
-                if(data.status == 4){
-                    isDownloaded = true;
-                    UNIT_TEST.log("[onDownload status]离线地图下载成功...");
-                    UNIT_TEST.assert(true);
-                }
-                if(data.status == 3){
-                    UNIT_TEST.log("[onDownload status]暂停下载...");
-                }
-                if(data.status == -1){
-                    isDownloaded = false;
-                    UNIT_TEST.log(data.name + " 下载失败!");
-                    UNIT_TEST.assert(false);
-                }
-            }
-            uexGaodeMap.download(json,downloadCallback);
-            function downloadCallback(error, data){
-                    if (!error) {
-                        UNIT_TEST.log("添加成功，请等待下载结果......");
-                    } else {
-                        UNIT_TEST.assert(false);
-                    }
-            };
-
-        },
-        "getDownloadingList": function(){
+               "getDownloadingList": function(){
             uexGaodeMap.getDownloadingList(function(error, data){
                 UNIT_TEST.log("[getDownloadingList data]" + data.length);
                 if(!error) {
@@ -650,54 +600,8 @@ if (UNIT_TEST) {
             });
         },
 
-        "isUpdate": function(){
-            var params = {
-                    city:cityName  //该市需要是地图已经下载过的，在本地有的
-            };
-            var json = JSON.stringify(params);
-            if(isDownloaded){
-                uexGaodeMap.isUpdate(json,function(error, data){
-                    UNIT_TEST.log("[isUpdate data]" + JSON.stringify(data));
-                    if(!error) {
-                        UNIT_TEST.assert(true);
-                    } else {
-                        UNIT_TEST.assert(false);
-                    }
-                });
-            }else{
-               UNIT_TEST.log("该市地图未下载过，没有更新信息");
-               UNIT_TEST.assert(false);
-            }
+        
 
-        },
-
-         "delete": function(){
-            var params = [cityName];
-            var json = JSON.stringify(params);
-            var isDeleteExecute = false;
-            if (uexWidgetOne.platformName.indexOf('android') > -1) {
-                 uexGaodeMap.delete(json,function(error, data){
-                    UNIT_TEST.log("[delete]: " + JSON.stringify(data));
-                    if (!isDeleteExecute) {
-                        isDeleteExecute = true;
-                        if(!error) {
-                            UNIT_TEST.assert(true);
-                        } else {
-                            if (data.errorCode == 1) { //未下载，不能删除
-                                UNIT_TEST.assert(true);
-                            } else {
-                                UNIT_TEST.assert(false);
-                            }
-
-                        }
-                    }
-
-                });
-            } else {
-                uexGaodeMap.delete(json);
-                UNIT_TEST.assert(true);
-            }
-        }
         /*
         "onReceiveLocation": function(){  //位置变化时才会被调用
             uexGaodeMap.onReceiveLocation = function(data) {
