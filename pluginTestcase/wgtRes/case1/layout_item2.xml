@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root layoutId = "2" layoutType = "${type}">
+    <!--<linearlayout id = "content" orientation = "horizontal" width = "-1"
+                  height = "400" background="${content_bg}">
+        <linearlayout id = "linearlayout2-1" width = "-1" height = "-1" weight = "1"  gravity = "bottom"
+                      background="${left_pic}" margin = "20"
+                      onClick = "onListViewItemClick">
+            <linearlayout orientation = "horizontal" width = "-1"
+                          height = "-2"  background = "#66000000"
+                          gravity="centerX">
+                <text id = "txt2-1" width = "-2" height = "-2" text="东圣九州国际大饭店" textSize = "14"
+                      margin = "0 0" textColor = "#ffffff"/>
+            </linearlayout>
+        </linearlayout>
+        <linearlayout id = "linearlayout2-2" width = "-1" height = "-1" weight = "1"  gravity = "bottom"
+                      background="res://case1/BaDongQian.jpg" margin = "20"
+                      onClick = "onListViewItemClick">
+            <linearlayout orientation = "horizontal" width = "-1"
+                          height = "-2"  background = "#66000000"
+                          gravity="centerX">
+                <text id = "txt2-2" width = "-2" height = "-2" text="大面山" textSize = "14"
+                      margin = "0 0" textColor = "#ffffff"/>
+            </linearlayout>
+        </linearlayout>
+    </linearlayout>-->
+    <linearlayout id = "content" orientation = "horizontal" width = "-1"
+                  height = "-2" background="${backgroundColor}" gravity = "center">
+        <text id = "text" width = "-2" height = "-2" text="${title}"
+              textColor = "#000000" weight = "1"/>
+        <button width = "-2" height = "-2" text="查看详情" onClick = "onButtonClick"/>
+    </linearlayout>
+</root>
