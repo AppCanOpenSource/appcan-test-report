@@ -49,23 +49,6 @@ function(CC, RootObserver) {
         }
         uexNIM.login(JSON.stringify(param), cbHelper.baseCallback);
     }
-    uexNIMCase.autoLogin = function() {
-        if (uexWidgetOne.platformName.indexOf('android') > -1) {
-            UNIT_TEST.log("Android 当前不支持");
-            UNIT_TEST.assertTrue(true);
-            return;
-        }
-        var param = {
-            userId: "user1",
-            //用户名
-            password: "123456",
-            //密码
-        };
-        cbHelper.fail = function(data) {
-            UNIT_TEST.log(JSON.stringify(data));
-        }
-        uexNIM.autoLogin(JSON.stringify(param), cbHelper.baseCallback);
-    }
     uexNIMCase.sendText = function() {
         var params = {
             sessionId: "user2",
