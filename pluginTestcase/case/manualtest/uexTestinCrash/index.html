@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	
+	<script type="text/javascript">
+
+	window.uexOnload = function(type){
+		if(type == 0){  
+		}
+	}
+	
+	function init(){
+		var params = {
+			appKey:"502711a31753d62be9d08a5340229b2d",
+			channel:"testin"
+		};
+		var data = JSON.stringify(params);
+		uexTestinCrash.init(data);
+	}
+
+	function setUserInfo(){
+		var params = {
+			username:"testtt"
+		};
+		var data = JSON.stringify(params);
+		uexTestinCrash.setUserInfo(data);
+	}
+
+	function leaveBreadcrumb(){
+		var params = {
+			breadcrumb:"breadcrumb"
+		};
+		var data = JSON.stringify(params);
+		uexTestinCrash.leaveBreadcrumb(data);
+	}
+
+	function test(){
+		uexTestinCrash.test();
+	}
+</script>
+</head>
+
+<body>
+	<div class="tit">uexTestinCrash</div>
+	<div class="conbor">
+		<div class="consj">
+
+			<input class='btn' type='button' value='init' onclick='init()'>
+
+			<input class='btn' type='button' value='setUserInfo' onclick='setUserInfo()'>
+
+			<input class='btn' type='button' value='leaveBreadcrumb' onclick='leaveBreadcrumb()'>
+
+			<input class='btn' type='button' value='test' onclick='test()'>
+			
+            <br/>
+            <input class="btn" type="button" value="返回" onclick="uexWindow.close(-1);">
+		</div>
+	</div>
+</body>
+</html>

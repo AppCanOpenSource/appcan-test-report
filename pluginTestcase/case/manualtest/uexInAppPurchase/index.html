@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+            <title>uexInAppPurchase</title>
+            <script type="text/javascript">
+                window.uexOnload = function() {
+                    uexInAppPurchase.onRequestState = function(state){
+                        alert(state);
+                    }
+                    
+                    uexInAppPurchase.onPurchaseState = function(state){
+                        alert(state);
+                    }
+                    
+                    uexInAppPurchase.onTransactionState = function(info){
+                        var state = JSON.parse(info);
+                        if(state.status == 0){
+                            alert("购买成功");
+                        }
+                        if(state.status == 1){
+                            alert("已经购买过该商品");
+                        }
+                        if(state.status == 2){
+                            alert(state.errorDescription);
+                        }
+                        if(state.status == 3 || state.status == 4 ){
+                            alert("购买失败");
+                        }
+                    }
+                    uexInAppPurchase.onRestoreState = function(state){
+                        alert(state);
+                    }
+                }
+            var productList;
+            function getProductsButton(){
+                var params = {
+                    "productIDs": ["EnergyBottle","GoldenGlobe","ProtectiveGloves"]
+                    
+                };
+                uexInAppPurchase.getProductList(params,function(error,data){
+                     if(!error){
+                        productList = data;
+                        alert(JSON.stringify(data));
+                     }
+                });
+            }
+            
+            function purchaseButton(){
+                
+                var params = {
+                    "productID": productList[0].productIdentifier,
+                    "quantity":"2",
+                    "appStoreVerifyURL": true
+                };
+                uexInAppPurchase.purchase(params);
+                
+            }
+            
+            function restoreButton(){
+                
+                uexInAppPurchase.restorePurchase();
+            }
+            function canPay(){
+                var info = uexInAppPurchase.canMakePay();
+                
+                alert(info);
+            }
+            </script>
+            </head>
+    
+    <body>
+        <div class="tit" id = "tit">InAppPurchase</div>
+        <div class="conbor">
+            <div class="consj">
+                <br><br><br><br><br><br><br>
+                <input class="btn" type="button" value="CanPay" onclick="canPay();"/>
+                <input class="btn" type="button" value="得到产品列表" onclick="getProductsButton();"/>
+                <input class="btn" type="button" value="购买产品" onclick="purchaseButton();"/>
+                <input class="btn" type="button" value="恢复购买" onclick="restoreButton();"/>
+            <br/>
+            <input class="btn" type="button" value="返回" onclick="uexWindow.close(-1);">
+            </div>
+        </div>
+    </body>
+</html>

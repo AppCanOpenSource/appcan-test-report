@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+            <link rel="stylesheet" type="text/css" href="css/index.css">
+                
+                <script type="text/javascript">
+                    
+                
+                function setAliasAndTags(){
+                    var tags=new Array("tag4","tag5","tag6");
+                    var params = {
+                        alias:"alias66",
+                        tags:tags
+                    };
+                    var data = JSON.stringify(params);
+                    uexJPush.setAliasAndTags(data,function(error,data) {
+                                             if(!error){
+                                             alert(JSON.stringify(data));
+                                             }else{
+                                             alert("设置失败");
+                                             }
+                                             });
+                }
+                
+                function setAlias(){
+                    var params = {
+                        alias:"alias22"
+                    };
+                    var data = JSON.stringify(params);
+                    uexJPush.setAlias(data,function(error,data) {
+                                      if(!error){
+                                      alert(JSON.stringify(data));
+                                      }else{
+                                      alert("设置失败");
+                                      }
+                                      });
+                }
+                
+                function setTags(){
+                    var tags=new Array("tag1","tag2","tag3");
+                    var params = {
+                        tags:tags
+                    };
+                    var data = JSON.stringify(params);
+                    uexJPush.setTags(data,function(error,data) {
+                                     if(!error){
+                                     alert(JSON.stringify(data));
+                                     }else{
+                                     alert("设置失败");
+                                     }
+                                     });
+                }
+                
+                function getRegistrationID(){
+                    var id = uexJPush.getRegistrationID();
+                    alert(id);
+                }
+                
+                
+                function getConnectionState(){
+                    uexJPush.getConnectionState(function(error) {
+                                                if(!error){
+                                                alert("已连上");
+                                                }else{
+                                                alert("未连接");
+                                                }
+                                                
+                                                });
+                }
+                
+                function addLocalNotification(){
+                    var params = {
+                        builderId:0,
+                        title:"这是title",
+                        content:"这是内容",
+                        extras:{"key":"value"},
+                        notificationId:3,
+                        broadCastTime:10000
+                    };
+                    var data = JSON.stringify(params);
+                    uexJPush.addLocalNotification(data);
+                }
+                
+                function removeLocalNotification(){
+                    var notificationId=3;
+                    var params = {
+                        notificationId:notificationId
+                    };
+                    var data = JSON.stringify(params);
+                    uexJPush.removeLocalNotification(data);
+                }
+                
+                function clearLocalNotifications(){
+                    
+                    uexJPush.clearLocalNotifications();
+                }
+                function setBadgeNumber(){
+                   uexJPush.setBadgeNumber(5);
+                   
+                }
+                function disableLocalNotificationAlertView(){
+                    uexJPush.disableLocalNotificationAlertView(1);
+                }
+                
+                
+                function onReceiveRegistration(info){
+                    alert(info);
+                }
+                
+                function onReceiveMessage(info){
+                    alert(info);
+                }
+                
+                function onReceiveNotification(info){
+                    alert(info);
+                }
+                
+                function onReceiveNotificationOpen(info){
+                    alert(info);
+                }
+                
+                 function onReceiveConnectionChange(info){
+                    alert(info);
+                }
+                
+                window.uexOnload = function(type){
+                    if(type == 0){  
+                        
+                        uexJPush.onReceiveRegistration = onReceiveRegistration;
+                        uexJPush.onReceiveMessage = onReceiveMessage;
+                        uexJPush.onReceiveNotification = onReceiveNotification;
+                        uexJPush.onReceiveNotificationOpen = onReceiveNotificationOpen;
+                        uexJPush.onReceiveConnectionChange = onReceiveConnectionChange;
+                    }
+                }
+                
+                
+                
+                
+                
+                    </script>
+    </head>
+    
+    <body>
+        <div class="tit">uexDemo对象</div>
+        <div class="conbor">
+            <div class="consj">
+                
+                
+                                
+                                <input class='btn' type='button' value='setAliasAndTags' onclick='setAliasAndTags()'>
+                                    
+                                    <input class='btn' type='button' value='setAlias' onclick='setAlias()'>
+                                        
+                                        <input class='btn' type='button' value='setTags' onclick='setTags()'>
+                                            
+                                            <input class='btn' type='button' value='getRegistrationID' onclick='getRegistrationID()'>
+                                                
+                                                <input class='btn' type='button' value='getConnectionState' onclick='getConnectionState()'>
+                                                    
+                                                    
+                                                                                
+                                                                                <input class='btn' type='button' value='addLocalNotification' onclick='addLocalNotification()'>
+                                                                                    
+                                                                                    <input class='btn' type='button' value='removeLocalNotification' onclick='removeLocalNotification()'>
+                                                                                        
+                                                                                        <input class='btn' type='button' value='clearLocalNotifications' onclick='clearLocalNotifications()'>
+                                                                                            
+                                                                                        <input class='btn' type='button' value='setBadgeNumber' onclick='setBadgeNumber()'>
+                                                                                             <input class='btn' type='button' value='disableLocalNotificationAlertView' onclick='disableLocalNotificationAlertView()'>
+                                                                                            </div>
+        </div>
+            <br/>
+            <input class="btn" type="button" value="返回" onclick="uexWindow.close(-1);">
+    </body>
+</html>
