@@ -1,7 +1,7 @@
 if (UNIT_TEST) {
-    var uexGPUImageCase = {
+    var uexImageFilterCase = {
         "open": function() {
-            uexGPUImage.open({
+            uexImageFilter.open({
                 path:"res://girl.jpg"
             },function(error,path){
                 if(!error){
@@ -13,7 +13,7 @@ if (UNIT_TEST) {
             })
         },
         "openView":function () {
-            uexGPUImage.openView({
+            uexImageFilter.openView({
                 w:720,
                 h:720,
                 type:"InkWell",
@@ -22,9 +22,9 @@ if (UNIT_TEST) {
             UNIT_TEST.assertDelay(true,5000);
         },
         "closeView":function () {
-            uexGPUImage.closeView();
+            uexImageFilter.closeView();
             UNIT_TEST.assert(true);
         }
     };
-    UNIT_TEST.addCase("gpuImage", uexGPUImageCase);
+    UNIT_TEST.addCase("gpuImage", uexImageFilterCase);
 }
