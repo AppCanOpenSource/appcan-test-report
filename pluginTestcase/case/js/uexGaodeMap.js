@@ -141,6 +141,48 @@ if (UNIT_TEST) {
             }
 
         },
+        "addMultiInfoWindow": function(){
+            var param = [
+                         {
+                         id:11002,
+                         longitude:114.409308,
+                         latitude:30.476229,
+                         title:"国创光谷上城",
+                         titleSize: 32,
+                         titleColor: "#DC143C",
+                         subTitle:"90000",
+                         subTitleColor: "#555555",
+                         subTitleSize: 28
+                         },
+                         {
+                         id:11004,
+                         longitude:114.402965,
+                         latitude:30.475845,
+                         title:"国创光谷上城",
+                         titleSize: 32,
+                         titleColor: "#3e3e3e",
+                         subTitle:"7888",
+                         subTitleColor: "#DC143C",
+                         subTitleSize: 28
+                         },
+                         {
+                         id:11006,
+                         longitude:114.405065,
+                         latitude:30.475845,
+                         title:"清江山水"
+                         }
+                         ];
+            var markerInfos = JSON.stringify(param);
+            var markers = uexGaodeMap.addMultiInfoWindow(markerInfos);
+            UNIT_TEST.log("[addMultiInfoWindow return data]" + JSON.stringify(markers) + markers.length );
+            if (markers.length != 3) {
+                UNIT_TEST.assert(false);
+            } else {
+                UNIT_TEST.assert(true);
+            }
+            
+        },
+
         "setMarkerOverlay": function(){
             var params = {
                 id:10002,
