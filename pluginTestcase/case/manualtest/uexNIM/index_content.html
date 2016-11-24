@@ -1,11 +1,41 @@
-/**
-    Android uexNIM插件回调和监听都在root页，所以需要特殊处理从root页获取相应的回调或监听事件。
-
-*/
-define(["CC", "RootObserver"],
-function(CC, RootObserver) {
-    if (!UNIT_TEST) return;
-
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../../css/index.css">
+    <style>
+        input{
+            color: black;
+            padding: 1px 6px;
+            margin-left:6px;
+        }
+        input[type="text"]{
+            padding: .2em .4em;
+            margin:.4em .6em;
+            font-size:1em;
+        }
+        input[type="button"]{
+            padding: .6em .8em;
+            margin:.4em .6em;
+            font-size:1.2em;
+        }
+    </style>
+    <script src="../../../js/zy_control.js"></script>
+    <script type="text/javascript" src="../../../js/main.js"></script>
+    <script type="text/javascript">
+    var UNIT_TEST = {};
+    UNIT_TEST.assert = function(data){
+        console.log('assert:' + data);
+    }
+    UNIT_TEST.assertTrue = function(data){
+        console.log('assertTrue:' + data);
+    }
+    UNIT_TEST.assertFalse = function(data){
+        console.log('assertFalse:' + data);
+    }
     var cbHelper = {};
     cbHelper.baseCallback = function(error, data) {
         if (!error) {
@@ -47,7 +77,7 @@ function(CC, RootObserver) {
         cbHelper.fail = function(data) {
             UNIT_TEST.log(JSON.stringify(data));
         }
-        uexNIM.login(JSON.stringify(param), cbHelper.baseCallback);
+       uexNIM.login(JSON.stringify(param), cbHelper.baseCallback);
     }
     uexNIMCase.autoLogin = function() {
         if (uexWidgetOne.platformName.indexOf('android') > -1) {
@@ -161,7 +191,7 @@ function(CC, RootObserver) {
             }
         };
         var observer = new RootObserver("uexNIM.onMessageSend");
-        observer.once(function(data) {
+        observer.once(function(notificationID, message, extraJSON) {
             UNIT_TEST.log("onMessageSend" + data);
             UNIT_TEST.assertTrue(true);
         });
@@ -177,7 +207,7 @@ function(CC, RootObserver) {
             }
         };
         var observer = new RootObserver("uexNIM.willSendMessage");
-        observer.once(function(data) {
+        observer.once(function(notificationID, message, extraJSON) {
             UNIT_TEST.log("onMessageSend");
             UNIT_TEST.assertTrue(true);
 
@@ -867,6 +897,39 @@ function(CC, RootObserver) {
             }
         });
     }
+    for (var pro in uexNIMCase) {
+      if(pro.startsWith("on")) {
 
-    UNIT_TEST.addCase("uexNIM", uexNIMCase);
-});
+      } else {
+          var method = "uexNIMCase." + pro + "()";
+          document.write('<input type="button" value="'+ pro+'" onclick='+method+'><br/>');
+      }
+    }
+
+        </script>
+  </head>
+<body class="um-vp " ontouchstart>
+    <div class="conbor">
+        <div class="consj">
+            <div id='globalPostArea'>全局广播显示区域</div><br><br>
+            <div onclick="openTest('Register')" class="testbtn">Register</div><br>
+            <div onclick="openTest('Message')" class="testbtn">Message</div><br>
+            <div onclick="openTest('Audio')" class="testbtn">Audio</div><br>
+            <div onclick="openTest('Team')" class="testbtn">Team</div><br>
+            <div onclick="openTest('Chatroom')" class="testbtn">ChatRoom</div><br>
+            <div onclick="openTest('SystemNotification')" class="testbtn">SystemNotification</div><br>
+            <div onclick="openTest('APNS')" class="testbtn">APNS</div><br>
+            <div onclick="openTest('User')" class="testbtn">User</div><br>
+            <div onclick="openTest('Call')" class="testbtn">Call</div><br>
+            <!--<div onclick="openTest('dev')" class="testbtn">dev</div><br>-->
+
+
+
+            <div>======回调记录==========</div>
+            <div id='TestCallBack'>原本内容</div>
+            <div id='TestData'>原本内容</div>
+            <div>======回调记录==========</div>
+        </div>
+    </div>
+</body>
+</html>
