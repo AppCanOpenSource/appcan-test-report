@@ -49,7 +49,7 @@
             "uexNIM"
         ];
         var dom = $("#pluginList")
-        plugins.forEach(function(aPlugin){
+        plugins.sort().forEach(function(aPlugin){
             dom.append("<div class=\"btncss\" data-control=\"BOX\"><div class=\"button ub ub-ac bc-text-head ub-pc bc-btn\" onclick='openManualTest(1,\""+aPlugin+"\")'>" + aPlugin + "</div></div>")
         });
         </script>
