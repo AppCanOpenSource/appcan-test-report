@@ -1,0 +1,36 @@
+.switch{	
+	width:3em;
+	position:relative;
+	height:1.6em;
+	border: 2px solid #e5e5e5;
+	background-color:#ffffff;
+	border-radius:0.9em;
+	-webkit-border-radius:0.9em;
+}
+
+.switch-btn{
+	-webkit-transition: all 200ms linear;
+	transition: all 200ms linear;
+	width:1.36em;
+	height:1.36em;
+	border-radius:0.8em;
+	-webkit-border-radius:0.8em;
+	border:1px solid rgba(0, 0, 0, .05);
+	margin:0.0625em 1px 0 0;
+	
+}
+input+ div>div.switch-btn{
+ 	-webkit-transform:translate(-0em);
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + div>div.switch-btn
+{
+	-webkit-transform:translate(1.5em);
+	background-color:#fff;
+}
+input:checked + div.switch{
+	background-color:#4cd964;
+	-webkit-transition: all 200ms linear;
+	transition: all 200ms linear;
+}
