@@ -120,7 +120,7 @@
         ];
         var dom = $("#pluginList");
         dom.append("<div class=\"btncss\" data-control=\"BOX\"><div class=\"button ub ub-ac bc-text-head ub-pc bc-btn\" onclick='openManualTest(0,\"manual\")'>手动测试入口</div></div>");
-        plugins.forEach(function(aPlugin){
+        plugins.sort().forEach(function(aPlugin){
             dom.append("<div class=\"btncss\" data-control=\"BOX\"><div class=\"button ub ub-ac bc-text-head ub-pc bc-btn\" onclick='openTestCase(\"" + aPlugin + "\")'>" + aPlugin + "</div></div>")
         });
         </script>
