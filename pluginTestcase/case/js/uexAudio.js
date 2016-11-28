@@ -6,19 +6,28 @@ if (UNIT_TEST) {
         },
         "setPlayMode":function(){
             uexAudio.setPlayMode({playMode:1});
-            UNIT_TEST.log("当前设置为听筒模式，请贴近耳朵听，播放时间为15秒钟.注意需要手机硬件支持听筒感应功能！");
             UNIT_TEST.assert(true);
         },
         "play":function(){
+            uexAudio.play(-1);
+            alert("参数-1，表示无限循环播放,点击确定结束播放");
+            uexAudio.stop();
+            uexAudio.play(0);
+            alert("参数0，表示不循环，只播放一次。一遍播放完成或者想结束播放请点击确定");
+            uexAudio.stop();
             uexAudio.play(2);
+            UNIT_TEST.log("参数2，表示播放两次");
+            UNIT_TEST.log("当前设置为听筒模式，请贴近耳朵听，播放时间为15秒钟.注意需要手机硬件支持听筒感应功能！");
             setTimeout("UNIT_TEST.assert(true)",15000);
         },
         "pause":function(){
             uexAudio.pause();
+            UNIT_TEST.log("暂停2秒钟");
             setTimeout("UNIT_TEST.assert(true)",2000);
         },
         "replay":function(){
             uexAudio.replay();
+            UNIT_TEST.log("重新播放");
             UNIT_TEST.assert(true);
         },
         "setProximityState":function(){
@@ -29,11 +38,14 @@ if (UNIT_TEST) {
         },
         "volumeUp":function(){
             uexAudio.volumeUp();
+            uexAudio.volumeUp();
+            uexAudio.volumeUp();
             uexAudio.setProximityState(0);
             UNIT_TEST.log("铃声增大，且听筒感应开关关闭，离开或靠近耳朵时，不切换声音播放模式，播放时间为15秒钟");
             setTimeout("UNIT_TEST.assert(true)",15000);
         },
         "volumeDown":function(){
+            uexAudio.volumeDown();
             uexAudio.volumeDown();
             UNIT_TEST.log("铃声减小，播放时间为15秒钟");
             setTimeout("UNIT_TEST.assert(true)",15000);
