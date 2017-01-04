@@ -274,8 +274,7 @@ if (UNIT_TEST) {
         "createWithPassword":function () {
             var file = uexFileMgr.createWithPassword({
                 path: "wgt://data/123456.txt",
-                password: "123456",
-                mode: 3
+                password: "123456"
             });
             if(file!=null){
                 UNIT_TEST.assert(true);
