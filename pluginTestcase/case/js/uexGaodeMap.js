@@ -642,7 +642,28 @@ if (UNIT_TEST) {
             });
         },
 
-        
+        "queryProcessedTrace": function () {
+                var params = {
+                    sequenceLineId:1,
+                    traceList:[
+                        {"longitude":116.47676009385665,"time":1470212510269,"address":"","speed":10.471948623657227,"bearing":44.10205841064453,"provider":"gps","accuracy":350,"latitude":39.995825200614696},
+                        {"longitude":116.4779446327818,"time":1470212512259,"address":"","speed":8.426321029663086,"bearing":32.86181640625,"provider":"gps","accuracy":16,"latitude":39.99609261805374},
+                        {"longitude":116.47809869435011,"time":1470212514259,"address":"","speed":10.110260963439941,"bearing":41.294612884521484,"provider":"gps","accuracy":12,"latitude":39.996230255943914},
+                        {"longitude":116.47834332726374,"time":1470212517000,"address":"","speed":9.825716972351074,"bearing":39.0571174621582,"provider":"gps","accuracy":12,"latitude":39.99640754897781},
+                        {"longitude":116.47848735683651,"time":1470212520000,"address":"","speed":5.457311630249023,"bearing":32.60914993286133,"provider":"gps","accuracy":16,"latitude":39.99658892117307},
+                        {"longitude":116.47846673090743,"time":1470212523000,"address":"","speed":6.840762615203857,"bearing":30.864465713500977,"provider":"gps","accuracy":24,"latitude":39.996708577271406},
+                        {"longitude":116.47867796293544,"time":1470212526000,"address":"","speed":4.876165390014648,"bearing":18.661848068237305,"provider":"gps","accuracy":24,"latitude":39.99700372751301},
+                        {"longitude":116.47881278947463,"time":1470212529000,"address":"","speed":9.283588409423828,"bearing":21.883132934570313,"provider":"gps","accuracy":24,"latitude":39.99714223899136},
+                        {"longitude":116.47892120104655,"time":1470212532000,"address":"","speed":9.645008087158203,"bearing":18.514925003051758,"provider":"gps","accuracy":16,"latitude":39.997427648837096},
+                        {"longitude":116.47900377104531,"time":1470212534000,"address":"","speed":10.45917797088623,"bearing":16.607942581176758,"provider":"gps","accuracy":16,"latitude":39.997624618553864},
+                    ],
+                    coordinateType:1
+                };
+                uexGaodeMap.queryProcessedTrace(params,function (error, data) {
+                    console.log(JSON.stringify(data));
+                    UNIT_TEST.assert(!error);
+                });
+        }
 
         /*
         "onReceiveLocation": function(){  //位置变化时才会被调用
