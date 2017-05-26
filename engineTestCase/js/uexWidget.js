@@ -103,3 +103,29 @@ appcan.button("#setKeyboardMode","btn-act", function(){
         });
     }
 });
+appcan.button("#setPushState0","btn-act", function(){
+    uexWidget.setPushState(1);
+    $("#setPushState_result_display").html("已开启推送");
+});
+appcan.button("#setPushState1","btn-act", function(){
+    uexWidget.setPushState(0);
+    $("#setPushState_result_display").html("已关闭推送");
+});
+appcan.button("#getPushState","btn-act", function(){
+    var result = uexWidget.getPushState();
+    $("#getPushState_result_display").html(result);
+});
+appcan.button("#setPushNotifiCallback","btn-act", function(){
+    uexWidget.setPushNotifiCallback("pushNotifyCallback");
+});
+appcan.button("#setPushInfo","btn-act", function(){
+    uexWidget.setPushInfo('123', 'appcan_user');
+});
+appcan.button("#getPushInfo","btn-act", function(){
+    var result = uexWidget.getPushInfo();
+    $("#getPushInfo_result_display").html(result);
+});
+
+function pushNotifyCallback(data) {
+    $("#getPushState_result_display").html("收到消息:" + data);
+}

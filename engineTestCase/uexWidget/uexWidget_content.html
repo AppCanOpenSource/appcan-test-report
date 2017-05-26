@@ -96,6 +96,12 @@
                     </div>
                     <input id = "onResume" class = "button-go" type="button" value = "onResume" />
                 </div>
+                <div class = "fun-unit">
+                    <div class="text-desc">
+                        <span>推送相关<br></span>
+                    </div>
+                    <input onclick = "push_start()" class = "button-go" type="button" value = "推送相关" />
+                </div>
             </div>
         </div>
         <script src="../js/appcan.js">
@@ -120,6 +126,9 @@
             }
             function setOnResume(){
                $("#onResume_result_display").html("程序恢复");
+            }
+            function push_start(){
+                openWindow("PushDemo");
             }
         </script>
     </body>
