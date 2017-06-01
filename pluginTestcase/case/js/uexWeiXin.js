@@ -67,13 +67,13 @@ if (UNIT_TEST) {
                 return;
             }
             uexWeiXin.getApiVersion(function(data) {
-            if(data){
-                UNIT_TEST.log("SDK的版本号"+data);
-                UNIT_TEST.assert(true);
-            }else{
-                UNIT_TEST.assert(false);
-            }
-        });
+                if(data){
+                    UNIT_TEST.log("SDK的版本号"+data);
+                    UNIT_TEST.assert(true);
+                }else{
+                    UNIT_TEST.assert(false);
+                }
+            });
         },
         "openWXApp":function(){
             if (uexWidgetOne.platformName.indexOf('android') > -1) {
@@ -87,6 +87,42 @@ if (UNIT_TEST) {
                    UNIT_TEST.assert(true);
                 });
 
+        },
+        "shareVideoContent":function(){
+            var params = {
+                thumbImg:"res://icon.png",
+                videoUrl:"http://m.iqiyi.com/v_19rr794vlc.html?social_platform=link&p1=2_22_221",
+                //videoLowBandUrl:"http://m.iqiyi.com/v_19rr794vlc.html?social_platform=link&p1=2_22_221",
+                scene:0,
+                title:"视频标题",
+                description:"视频描述"
+            };
+            uexWeiXin.shareVideoContent(params,function(error){
+                    if(!error){
+                        UNIT_TEST.log("分享成功");
+                        UNIT_TEST.assertTrue(error == 0);
+                    }else{
+                        UNIT_TEST.assert(false);
+                    }
+            });
+        },
+        "shareMusicContent":function(){
+            var params = {
+                //thumbImg:"res://icon.png",
+                //musicLowBandUrl:"http://120.196.211.49/XlFNM14sois/AKVPrOJ9CBnIN556OrWEuGhZvlDF02p5zIXwrZqLUTti4o6MOJ4g7C6FPXmtlh6vPtgbKQ==/31353278.mp3",
+                musicUrl:"http://staff2.ustc.edu.cn/~wdw/softdown/index.asp/0042515_05.ANDY.mp3",
+                scene:0,
+                title:"音乐标题",
+                description:"音乐描述"
+            };
+            uexWeiXin.shareMusicContent(params,function(error){
+                    if(!error){
+                        UNIT_TEST.log("分享成功");
+                        UNIT_TEST.assertTrue(error == 0);
+                    }else{
+                        UNIT_TEST.assert(false);
+                    }
+            });
         },
         "shareTextContent":function(){
             uexWeiXin.shareTextContent('{"text":"这是来自AppCan平台对微信支持测试","scene":1}',function(error) {
@@ -258,7 +294,6 @@ if (UNIT_TEST) {
             });
         }
 
-       
     }
     UNIT_TEST.addCase("weiXin", uexWeiXinCase);
 }
