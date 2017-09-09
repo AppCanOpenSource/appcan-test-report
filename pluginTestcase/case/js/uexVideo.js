@@ -7,7 +7,8 @@ if (UNIT_TEST) {
         "openPlayer": function () {
             openPlayer();
             UNIT_TEST.assert(true);
-        },
+        }
+        ,
         "closePlayer":function () {
             openPlayer();
             setTimeout(' uexVideo.closePlayer();' +
@@ -23,6 +24,12 @@ if (UNIT_TEST) {
             }
             uexVideo.record(JSON.stringify(params));
             uexVideo.onRecordFinish = function(info){
+                UNIT_TEST.assert(true);
+            };
+        },
+        "videoPicker":function () {
+            uexVideo.videoPicker();
+            uexVideo.onVideoPickerClosed = function(data){
                 UNIT_TEST.assert(true);
             };
         },
@@ -48,7 +55,7 @@ if (UNIT_TEST) {
                     setTimeout("uexVideo.closePlayer();",1000);
                 }
             };
-        },
+        }
     };
 
     function openPlayer() {
@@ -59,6 +66,7 @@ if (UNIT_TEST) {
             forceFullScreen: false,
             showCloseButton: true,
             showScaleButton: true,
+            isAutoEndFullScreen: true,
             width: 650,
             height: 480,
             x: 100,
