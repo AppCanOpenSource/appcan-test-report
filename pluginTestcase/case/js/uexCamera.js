@@ -1,6 +1,13 @@
 if(UNIT_TEST){
     var size = 0;
     var uexCameraCase = {
+        "registerOnPermissionDenied":function(){
+            uexCamera.onPermissionDenied = function(data){
+                UNIT_TEST.log(data.info);
+                UNIT_TEST.assert(false);
+            }
+            UNIT_TEST.assert(true);
+        },
         "open":function(){
             var comtextareass = '0';
             var quality = '100';
